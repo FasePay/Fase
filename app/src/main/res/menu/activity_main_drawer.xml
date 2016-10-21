@@ -18,10 +18,7 @@
             android:id="@+id/nav_merchant_transaction"
             android:icon="@drawable/ic_cached_black_48px"
             android:title="Merchant transaction" />
-        <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_settings_black_24dp"
-            android:title="Setting" />
+
         <item
             android:id="@+id/nav_logOut"
             android:icon="@drawable/ic_exit_to_app_black_48px"

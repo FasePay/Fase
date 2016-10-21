@@ -1,5 +1,6 @@
 package com.faseapp.faseapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
+import Fragment.InstaPay1_Fragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private AHBottomNavigation bottomNavigation;
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
 
-        bottomNavigation= (AHBottomNavigation) findViewById(R.id.bottomNavigation);
+        bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottomNavigation);
         setUpBottomNavigation();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -36,10 +39,35 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if(findViewById(R.id.frameLayoutMain)!=null){
+            if(savedInstanceState!=null){
+                return;
+            }
+            final InstaPay1_Fragment fragment=new InstaPay1_Fragment();
+            fragment.setArguments(getIntent().getExtras());
+
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.frameLayoutMain, fragment).commit();
+        }
     }
 
     private void setUpBottomNavigation() {
-        AHBottomNavigationItem item1=new AHBottomNavigationItem("Insta pay",R.drawable.ic_menu_camera);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Insta pay", R.drawable.ic_menu_camera);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Transfer & refill", R.drawable.ic_exit_to_app_black_48px);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Fav shops", R.drawable.ic_favorite_black_24dp);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem("Merchant's shop", R.drawable.ic_store_mall_directory_black_24dp);
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+        bottomNavigation.addItem(item4);
+
+        bottomNavigation.setBehaviorTranslationEnabled(false);
+        bottomNavigation.setAccentColor(Color.parseColor("#e86d66"));
+        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#344a5c"));
+        bottomNavigation.setInactiveColor(Color.parseColor("#f8eeef"));
+
     }
 
     @Override
