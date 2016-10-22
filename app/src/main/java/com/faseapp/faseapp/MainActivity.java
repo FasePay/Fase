@@ -1,5 +1,6 @@
 package com.faseapp.faseapp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import Fragment.InstaPay1_Fragment;
+import navigation.CardActivity;
+import navigation.CardAdd;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -108,9 +111,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 //
-//        if (id == R.id.nav_addCard) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_addCard) {
+            startActivity(new Intent(MainActivity.this, CardAdd.class));
+        }
+        else if(id==R.id.nav_user_transaction)
+        {
+            startActivity(new Intent(MainActivity.this, CardActivity.class));
+        }
+        //else if (id == R.id.nav_gallery) {
 //
 //        } else if (id == R.id.nav_slideshow) {
 //
