@@ -18,14 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="navigation.CardAdd"
+        <activity
+            android:name="navigation.CardAdd"
             android:label="Add Card"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name="navigation.CardActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="navigation.CardActivity"
             android:label="Transactions"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>
