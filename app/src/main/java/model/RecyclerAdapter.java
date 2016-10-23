@@ -24,6 +24,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     private Context mContext;
     private List<CardModel> cardModelList;
+    boolean flag;
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name,amount,time;
 
@@ -37,15 +38,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
 
     }
-    public RecyclerAdapter(Context mContext, List<CardModel> cardList) {
+    public RecyclerAdapter(Context mContext, List<CardModel> cardList,boolean flag) {
         this.mContext = mContext;
         this.cardModelList = cardList;
+        this.flag=flag;
+
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_card_view, parent, false);
-
+        View itemView;
+        if(!flag) {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_card_view, parent, false);
+        }
+        else
+        {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_merchant_card_view, parent, false);
+        }
         return new MyViewHolder(itemView);
     }
     @Override

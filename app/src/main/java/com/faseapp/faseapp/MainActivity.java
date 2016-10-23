@@ -116,7 +116,15 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id==R.id.nav_user_transaction)
         {
-            startActivity(new Intent(MainActivity.this, CardActivity.class));
+            Intent intent =new Intent(MainActivity.this,CardActivity.class);
+            intent.putExtra("FLAG",false);
+            startActivity(intent);
+        }
+        else if(id==R.id.nav_merchant_transaction)
+        {
+            Intent intent =new Intent(MainActivity.this,CardActivity.class);
+            intent.putExtra("FLAG",true);
+            startActivity(intent);
         }
         //else if (id == R.id.nav_gallery) {
 //

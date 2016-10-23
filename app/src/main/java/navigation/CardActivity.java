@@ -29,21 +29,28 @@ public class CardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_card_main);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         cardList=new ArrayList<>();
-        cardList=initializeList();
-        adapter=new RecyclerAdapter(this,cardList);
-
+        cardList=initializeList(getIntent().getExtras().getBoolean("FLAG"));
+        adapter=new RecyclerAdapter(this,cardList,getIntent().getExtras().getBoolean("FLAG"));
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
         recyclerView.setAdapter(adapter);
     }
 
-    private List<CardModel> initializeList() {
+    private List<CardModel> initializeList(boolean flag) {
         List<CardModel> cardModel=new ArrayList<>();
-        for(int i=1;i<=6;i++)
+        if(!flag) {
+            for (int i = 1; i <= 6; i++) {
+                CardModel cardM = new CardModel("Fake-Name", "1500", "21-10-2016 18:23:21");
+                cardModel.add(cardM);
+            }
+        }
+        else
         {
-            CardModel cardM=new CardModel("Fake-Name","1500","21-10-2016 18:23:21");
-            cardModel.add(cardM);
+            for (int i = 1; i <= 6; i++) {
+                CardModel cardM = new CardModel("pay_29QQoUBi66xm2f", "1500", "21-10-2016 18:23:21");
+                cardModel.add(cardM);
+            }
         }
         return  cardModel;
     }
