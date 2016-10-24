@@ -54,7 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         else
         {
             itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_merchant_card_view, parent, false);
+                    .inflate(R.layout.layout_card_view, parent, false);
         }
         return new MyViewHolder(itemView);
     }

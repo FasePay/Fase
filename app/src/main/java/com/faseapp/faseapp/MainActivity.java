@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,12 +17,14 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import Fragment.InstaPay1_Fragment;
+import Fragment.MerchantShop_Fragment;
 import navigation.CardActivity;
 import navigation.CardAdd;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private AHBottomNavigation bottomNavigation;
+    private final String FRAGMENT_TAG = "FTAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +73,33 @@ public class MainActivity extends AppCompatActivity
         bottomNavigation.setAccentColor(Color.parseColor("#e86d66"));
         bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#344a5c"));
         bottomNavigation.setInactiveColor(Color.parseColor("#f8eeef"));
-
+       bottomtab();
+    }
+   public void bottomtab(){
+     // final FragmentManager fragmentManager = getSupportFragmentManager();
+       bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+           @Override
+           public boolean onTabSelected(int position, boolean wasSelected) {
+               switch (position){
+                   case 1:
+                      // break;
+                   case 2:
+                      // break;
+                   case 3:
+                      // break;
+                   case 4:
+                      /* fragmentManager.beginTransaction()
+                               .replace(R.id.frameLayoutMain, new MerchantShop_Fragment(),FRAGMENT_TAG).commit();
+                       if (getSupportActionBar() != null) {
+                           getSupportActionBar().setTitle("Home");
+                       }*/
+                       Intent i=new Intent(MainActivity.this,Merchantshop.class);
+                       startActivity(i);
+                       break;
+               }
+               return true;
+           }
+       });
     }
 
     @Override

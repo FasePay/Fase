@@ -1,44 +1,34 @@
-package Fragment;
+package com.faseapp.faseapp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-import com.faseapp.faseapp.R;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * Created by Sonu on 21-Oct-16.
+ * Created by amit on 25/10/16.
  */
-public class MerchantShop_Fragment extends Fragment implements OnMapReadyCallback {
-    GoogleMap myMap;
+
+public class Merchantshop extends AppCompatActivity implements OnMapReadyCallback {
     MapView mMapView;
-
-    public MerchantShop_Fragment() {
-        super();
-    }
-
+    private final String LOG_TAG = "FTAG";
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.merchantshop, container, false);
-        mMapView = (MapView) view.findViewById(R.id.map);
+        setContentView(R.layout.merchantshop);
+        mMapView = (MapView) findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
         mMapView.getMapAsync(this);
-        return view;
+
     }
 
     @Override
@@ -54,10 +44,6 @@ public class MerchantShop_Fragment extends Fragment implements OnMapReadyCallbac
         mMapView.onDestroy();
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
@@ -75,14 +61,21 @@ public class MerchantShop_Fragment extends Fragment implements OnMapReadyCallbac
         super.onResume();
         mMapView.onResume();
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        if (googleMap == null)
+            return; // Google Maps not available
+       // try {
+            MapsInitializer.initialize(this);
+      /*  }
+        catch (GooglePlayServicesNotAvailableException e) {
+            Log.e(LOG_TAG, "Have GoogleMap but then error", e);
+            return;
+        }*/
         LatLng latLng=new LatLng(22.5965, 88.4176);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
         googleMap.addMarker(new MarkerOptions().position(latLng));
+
     }
 }
