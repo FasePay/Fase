@@ -10,23 +10,35 @@
     tools:context="com.faseapp.faseapp.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+
+
     <FrameLayout
-        android:id="@+id/frameLayoutMain"
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="90"
-        android:layout_above="@+id/bottomNavigation">
+        >
 
 
     </FrameLayout>
 
+    <!--<fragment-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="90"-->
+
+
+        <!--android:id="@+id/fragment"-->
+        <!--/>-->
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-        android:background="@color/textColor"
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
+
         android:id="@+id/bottomNavigation"></com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
+
+
+
 
 </LinearLayout>

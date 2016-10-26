@@ -49,12 +49,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         View itemView;
         if(!flag) {
             itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_card_view, parent, false);
+                   .inflate(R.layout.layout_card_view, parent, false);
         }
         else
         {
             itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_merchant_card_view, parent, false);
+                   .inflate(R.layout.layout_merchant_card_view, parent, false);
         }
         return new MyViewHolder(itemView);
     }
@@ -73,3 +73,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return cardModelList.size();
     }
 }
+
+
+
