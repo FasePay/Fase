@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottomNavigation);
@@ -71,6 +70,7 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment, fragment).commit();
         }
+
     }
 
     private void setUpBottomNavigation() {
@@ -155,6 +155,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, CardActivity.class);
             intent.putExtra("FLAG", true);
             startActivity(intent);
+        }
+        else if (id==R.id.nav_logOut)
+        {
+            startActivity(new Intent(MainActivity.this,ProfileActivity.class));
         }
 
 

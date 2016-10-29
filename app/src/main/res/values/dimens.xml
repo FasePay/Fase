@@ -13,6 +13,5 @@
     <dimen name="size_25sp">25sp</dimen>
     <dimen name="size_30dp">30dp</dimen>
     <dimen name="size_40dp">40dp</dimen>
-    <dimen name="size_50dp">50dp</dimen>
-    <dimen name="size_80dp">80dp</dimen>
+    <dimen name="margin_card">22dp</dimen>
 </resources>
