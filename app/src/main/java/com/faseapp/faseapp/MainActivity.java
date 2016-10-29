@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -156,11 +157,11 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("FLAG", true);
             startActivity(intent);
         }
-        else if (id==R.id.nav_logOut)
+   /*     else if (id==R.id.nav_logOut)
         {
             startActivity(new Intent(MainActivity.this,ProfileActivity.class));
         }
-
+*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

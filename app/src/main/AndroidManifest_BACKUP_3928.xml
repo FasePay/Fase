@@ -25,11 +25,9 @@
         <activity
             android:name="navigation.CardAdd"
             android:label="Add Card"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".Merchantshop" />
         <activity
-            android:parentActivityName=".MainActivity"
             android:name="navigation.CardActivity"
             android:label="Transactions"
             android:theme="@style/AppTheme" />
@@ -45,15 +43,26 @@
         <activity
             android:name=".UserEntry"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginSignup"></activity>
+<<<<<<< Updated upstream
+        <activity
+            android:name=".LoginSignup"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Password_activity" />
+        <activity android:name=".SignUpClient" />
+        <activity android:name=".OtpClient"></activity>
+=======
+        <activity android:name=".Login"></activity>
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:parentActivityName=".MainActivity"
             android:name=".ProfileActivity"
             android:label="@string/avatar_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+>>>>>>> Stashed changes
     </application>
 
 </manifest>
