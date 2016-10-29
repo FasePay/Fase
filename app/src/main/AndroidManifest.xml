@@ -43,9 +43,15 @@
         <activity
             android:name=".UserEntry"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Login"></activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".LoginSignup"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Password_activity" />
+        <activity android:name=".SignUpClient" />
+        <activity android:name=".OtpClient"></activity>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@
         android:layout_weight="40" />
 
     <TextView
+
         android:textAlignment="center"
         android:textSize="25sp"
         android:text="User"
