@@ -31,7 +31,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import Utils.MyDebugClass;
-import navigation.CardActivity;
 import navigation.CardAdd;
 import navigation.User_transaction;
 
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     private AHBottomNavigation bottomNavigation;
     private final String FRAGMENT_TAG = "FTAG";
     private int MY_PERMISSION_REQUEST_CAMERA = 100;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
