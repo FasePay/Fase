@@ -1,0 +1,9 @@
+<application>
+  <component name="FileTypeManager" version="16">
+    <extensionMap>
+      <mapping pattern="Fragment" type="CLASS" />
+      <mapping ext="ttf" type="PLAIN_TEXT" />
+      <mapping pattern="DividerHorizontal" type="XML" />
+    </extensionMap>
+  </component>
+</application>
