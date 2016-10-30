@@ -2,8 +2,8 @@
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_marginBottom="6dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
     android:layout_marginTop="8dp"
     android:layout_height="227dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -26,11 +26,16 @@
             android:typeface="serif"
             android:layout_marginTop="@dimen/size_10dp"
             android:layout_marginLeft="16dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/textColor"
             android:shadowColor="@color/colorPrimary"
             android:text="Transaction Id"
             android:textSize="22sp"
+
             />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,10 +44,14 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_weight="20"
+                android:layout_weight="10"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:background="@drawable/ic_arrow_forward_black_24dp"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -62,7 +71,7 @@
             android:layout_marginTop="@dimen/size_10dp"
             android:shadowColor="@color/colorPrimary"
             android:text="Amount"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/textColor"
             android:textSize="22sp"
             />
         <LinearLayout
@@ -73,10 +82,14 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_weight="20"
+                android:layout_weight="10"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:background="@drawable/ic_attach_money_black_24dp"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="80"
@@ -96,7 +109,7 @@
             android:layout_marginLeft="16dp"
             android:shadowColor="@color/colorPrimary"
             android:text="Date \u0026 Time"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/textColor"
             android:textSize="18sp"
             />
         <LinearLayout
@@ -107,10 +120,14 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_weight="20"
+                android:layout_weight="10"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:background="@drawable/ic_date_black_24dp"/>
+                android:background="@drawable/ic_date_red"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="80"

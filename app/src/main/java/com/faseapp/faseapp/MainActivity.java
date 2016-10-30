@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setUpBottomNavigation() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Insta pay", R.drawable.ic_menu_camera);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Transfer & refill", R.drawable.ic_exit_to_app_black_48px);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Fav shops", R.drawable.ic_favorite_black_24dp);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Insta pay", R.drawable.ic_give_money);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Transfer & refill", R.drawable.ic_transfer);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Fav shops", R.drawable.ic_favorite);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem("Merchant's shop", R.drawable.ic_store_mall_directory_black_24dp);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
@@ -133,6 +133,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if(id==R.id.action_profile){
+            startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
             return true;
         }
 

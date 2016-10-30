@@ -45,7 +45,10 @@
         <activity
             android:name=".UserEntry"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginSignup"></activity>
+        <activity android:name=".LoginSignup"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Password_activity"
+            ></activity>
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
