@@ -2,8 +2,10 @@ package com.faseapp.faseapp;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,15 +27,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
+import java.io.File;
+
+import Fragment.TransferAndRefill_Fragment;
 import Utils.MyDebugClass;
 import navigation.CardActivity;
 import navigation.CardAdd;
-import Fragment.TransferAndRefill_Fragment;
 import navigation.User_transaction;
 
 public class MainActivity extends AppCompatActivity
@@ -77,9 +80,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setUpBottomNavigation() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Insta pay", R.drawable.ic_menu_camera);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Transfer & refill", R.drawable.ic_exit_to_app_black_48px);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Fav shops", R.drawable.ic_favorite_black_24dp);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Insta pay", R.drawable.ic_give_money);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Transfer & refill", R.drawable.ic_transfer);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Fav shops", R.drawable.ic_favorite_star);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem("Merchant's shop", R.drawable.ic_store_mall_directory_black_24dp);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
@@ -161,7 +164,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 //
@@ -174,6 +177,18 @@ public class MainActivity extends AppCompatActivity
            Intent intent = new Intent(MainActivity.this, CardActivity.class);
            intent.putExtra("FLAG", true);
           startActivity(intent);
+        }
+        else if(id==R.id.nav_logOut){
+            startActivity(new Intent(getApplicationContext(),UserEntry.class));
+        }
+        else if(id==R.id.nav_share){
+            ApplicationInfo app = getApplicationInfo();
+            String filePath = app.sourceDir;
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("*/*");
+            intent.setType("application/vnd.android.package-archive");
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(filePath)));
+            startActivity(Intent.createChooser(intent, "Share app"));
         }
 
 
@@ -194,7 +209,7 @@ public class MainActivity extends AppCompatActivity
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(MainActivity.this, "hua ya nahi hua", Toast.LENGTH_LONG).show();
+
                 }
             });
             textView = (TextView) view.findViewById(R.id.textViewScanQrCode);

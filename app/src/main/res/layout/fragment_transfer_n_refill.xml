@@ -1,3 +1,4 @@
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -72,31 +73,99 @@
         android:layout_marginTop="@dimen/pad_10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="60">
+        android:layout_weight="55">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
 
             <TextView
+                android:gravity="center"
+                android:text="Transfer Mode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/textView9"
+                android:textSize="25sp"
                 android:textColor="@color/textColor"
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:gravity="bottom"
-                android:text="@string/transfer"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:id="@+id/textViewdown"
-                android:layout_weight="75" />
-            <ImageView
-                android:tag="choose"
-                android:padding="@dimen/pad_5dp"
-                android:src="@drawable/contacts_icon"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="25"/>
+                android:textStyle="normal|bold"
+                android:textAlignment="center" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:background="@color/textColor"/>
+            <LinearLayout
+                android:layout_marginTop="@dimen/size_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:padding="@dimen/pad_10dp"
+                    android:src="@drawable/ic_wallet"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="25"
+                    android:id="@+id/imageView3" />
+
+                <TextView
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:text="@string/Wallettobank"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textViewwallettobank"
+                    android:layout_weight="50" />
+
+                <ImageView
+                    android:padding="@dimen/pad_10dp"
+                    android:src="@drawable/ic_bank"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="25"
+                    android:id="@+id/imageView4" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="@dimen/size_10dp"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:background="@color/textColor"/>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/pad_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:padding="@dimen/pad_10dp"
+                    android:src="@drawable/ic_bank"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="25"
+                    android:id="@+id/imageView5" />
+
+                <TextView
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:text="@string/banktobank"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textViewbanktobank"
+                    android:layout_weight="50" />
+                <ImageView
+                    android:padding="@dimen/pad_10dp"
+                    android:src="@drawable/ic_bank"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="25"/>
+            </LinearLayout>
         </LinearLayout>
 
 
