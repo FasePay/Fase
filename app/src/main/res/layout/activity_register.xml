@@ -95,6 +95,7 @@
         android:hint="Phone Number" />
 
     <Button
+
         android:layout_marginTop="@dimen/pad_5dp"
         android:layout_marginBottom="@dimen/pad_5dp"
         android:textColor="@color/white"
