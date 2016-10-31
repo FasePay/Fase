@@ -31,7 +31,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import Utils.MyDebugClass;
+import navigation.CardActivity;
 import navigation.CardAdd;
+import Fragment.TransferAndRefill_Fragment;
 import navigation.User_transaction;
 
 public class MainActivity extends AppCompatActivity
@@ -107,6 +109,9 @@ public class MainActivity extends AppCompatActivity
         switch (position){
             case 0:
                 fragmentManager.beginTransaction().replace(R.id.fragment,new InstaPay1(),FRAGMENT_TAG).addToBackStack(null).commit();
+                break;
+            case 1:
+                fragmentManager.beginTransaction().replace(R.id.fragment,new TransferAndRefill_Fragment(),FRAGMENT_TAG).addToBackStack(null).commit();
                 break;
             case 3:
                 fragmentManager.beginTransaction().replace(R.id.fragment,new Merchantshop(),FRAGMENT_TAG).addToBackStack(null).commit();
