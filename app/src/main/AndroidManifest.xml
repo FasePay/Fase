@@ -28,9 +28,9 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity
+            android:parentActivityName=".MainActivity"
             android:name="navigation.CardActivity"
             android:label="Transactions"
-            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
 
         <meta-data
@@ -44,28 +44,21 @@
         <activity
             android:name=".UserEntry"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".LoginSignup"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginSignup"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Password_activity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"/>
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            ></activity>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/avatar_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="navigation.User_transaction"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="navigation.User_transaction"
+            android:parentActivityName=".MainActivity"
             android:label="Transactions"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".Register"
-            android:label="Register"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

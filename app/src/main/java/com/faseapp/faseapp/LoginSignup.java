@@ -1,35 +1,58 @@
 package com.faseapp.faseapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class LoginSignup extends AppCompatActivity {
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+
+public class LoginSignup extends AppCompatActivity implements
+        GoogleApiClient.OnConnectionFailedListener{
     TextView textViewGoogle,textViewFb;
+    GoogleApiClient mGoogleApiClient;
+    private static final int RC_SIGN_IN = 9001;
     Button button;
-
+    private LoginButton loginButton;
+    private SignInButton signIn;
+    private CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login_signup);
-        textViewGoogle= (TextView) findViewById(R.id.textViewGoogle);
-        textViewFb= (TextView) findViewById(R.id.textViewFb);
+        loginButton = (LoginButton)findViewById(R.id.login_button);
         button= (Button) findViewById(R.id.buttonSignup);
-        textViewGoogle.setOnClickListener(new View.OnClickListener() {
+        signIn= (SignInButton) findViewById(R.id.sign_in_button);
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginSignup.this,Password_activity.class));
+            public void onClick(View view) {
+                signIn();
             }
         });
-        textViewFb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginSignup.this,Password_activity.class));
-            }
-        });
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,5 +60,54 @@ public class LoginSignup extends AppCompatActivity {
             }
         });
 
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancel() {
+            Toast.makeText(getApplicationContext(),"Login Cancelled",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_LONG).show();
+            }
+        });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+        else {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+           Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+        } else {
+            // Signed out, show unauthenticated UI.
+            Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent,RC_SIGN_IN);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
+    }
+
 }
