@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "895758227539",
+    "project_id": "firebase-fase"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895758227539:android:3a4c8757fa1eed35",
+        "android_client_info": {
+          "package_name": "com.faseapp.faseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895758227539-e933rq1rdf69jou411hbcdvn574dud2r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.faseapp.faseapp",
+            "certificate_hash": "3F78F39C6B6C8710A4567398F878D62ACB2E06EA"
+          }
+        },
+        {
+          "client_id": "895758227539-b0vq9b41a41hjpi5c2nnld39sosqifil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyComo6kRUADSZEmEL26NABMEY3yEypVKIw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
