@@ -31,7 +31,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import Utils.MyDebugClass;
+import navigation.CardActivity;
 import navigation.CardAdd;
+import Fragment.TransferAndRefill_Fragment;
 import navigation.User_transaction;
 
 public class MainActivity extends AppCompatActivity
@@ -105,8 +107,14 @@ public class MainActivity extends AppCompatActivity
     private void changeView(int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (position){
+            case 0:
+                fragmentManager.beginTransaction().replace(R.id.fragment,new InstaPay1(),FRAGMENT_TAG).addToBackStack(null).commit();
+                break;
+            case 1:
+                fragmentManager.beginTransaction().replace(R.id.fragment,new TransferAndRefill_Fragment(),FRAGMENT_TAG).addToBackStack(null).commit();
+                break;
             case 3:
-                fragmentManager.beginTransaction().replace(R.id.fragment,new Merchantshop(),FRAGMENT_TAG).commit();
+                fragmentManager.beginTransaction().replace(R.id.fragment,new Merchantshop(),FRAGMENT_TAG).addToBackStack(null).commit();
                 break;
         }
     }
@@ -140,6 +148,13 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        else if(id==R.id.action_profile)
+        {
+            Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -151,18 +166,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 //
         if (id == R.id.nav_addCard) {
-            fragmentManager.beginTransaction().replace(R.id.fragment,new CardAdd(),FRAGMENT_TAG).commit();
-           // startActivity(new Intent(MainActivity.this, CardAdd.class));
+           startActivity(new Intent(MainActivity.this, CardAdd.class));
         } else if (id == R.id.nav_user_transaction) {
-            fragmentManager.beginTransaction().replace(R.id.fragment,new User_transaction(),FRAGMENT_TAG).commit();
-          //  Intent intent = new Intent(MainActivity.this, CardActivity.class);
-          //  intent.putExtra("FLAG", false);
-          //  startActivity(intent);
+         startActivity(new Intent(MainActivity.this, User_transaction.class));
         } else if (id == R.id.nav_merchant_transaction) {
-            fragmentManager.beginTransaction().replace(R.id.fragment,new User_transaction(),FRAGMENT_TAG).commit();
-           // Intent intent = new Intent(MainActivity.this, CardActivity.class);
-          //  intent.putExtra("FLAG", true);
-         //   startActivity(intent);
+
+           Intent intent = new Intent(MainActivity.this, CardActivity.class);
+           intent.putExtra("FLAG", true);
+          startActivity(intent);
         }
 
 

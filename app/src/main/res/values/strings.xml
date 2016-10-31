@@ -7,4 +7,6 @@
     <string name="title_activity_card_add">CardAdd</string>
     <string name="Rs">\u20B9</string>
     <string name="avatar_name">User_avatar</string>
+    <string name="refill">Refill your account</string>
+    <string name="transfer">Transfer to your \n fase friend</string>
 </resources>

@@ -15,4 +15,6 @@
     <dimen name="size_40dp">40dp</dimen>
     <dimen name="margin_card">22dp</dimen>
     <dimen name="size_15dp">15dp</dimen>
+    <dimen name="pad_15dp">15dp</dimen>
+    <dimen name="pad_10dp">10dp</dimen>
 </resources>

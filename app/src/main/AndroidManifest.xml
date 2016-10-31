@@ -27,7 +27,6 @@
             android:label="Add Card"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Merchantshop" />
         <activity
             android:parentActivityName=".MainActivity"
             android:name="navigation.CardActivity"
@@ -52,11 +51,14 @@
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:parentActivityName=".MainActivity"
             android:name=".ProfileActivity"
             android:label="@string/avatar_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name="navigation.User_transaction"
+            android:parentActivityName=".MainActivity"
+            android:label="Transactions"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
