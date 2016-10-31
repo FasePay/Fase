@@ -19,6 +19,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -33,9 +34,13 @@
             android:label="Transactions"
             android:theme="@style/AppTheme" />
 
+        <!--<meta-data-->
+            <!--android:name="com.google.android.maps.v2.API_KEY"-->
+            <!--android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />-->
+
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />
+            android:value="AIzaSyASX_w3x5NBzuvLsXgyXTdluxa1CcDsw5U" />
 
         <activity android:name=".Home_Page" />
         <activity
