@@ -9,22 +9,16 @@
     tools:context="com.faseapp.faseapp.LoginSignup">
 
 
-    <TextView
+    <com.facebook.login.widget.LoginButton
         android:elevation="@dimen/cardview_default_elevation"
         android:layout_marginRight="@dimen/size_60dp"
-        android:text="Login with fb"
-        android:drawableLeft="@drawable/fb_icon"
-        android:padding="8dp"
         android:gravity="center"
-        android:textColor="#3F51B5"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_40dp"
-        android:layout_marginTop="60dp"
-        android:id="@+id/textViewFb"
-        android:textSize="14sp"
-        android:layout_alignTop="@+id/textViewGoogle"
-        android:layout_alignStart="@+id/textViewGoogle" />
+        android:layout_marginTop="70dp"
+        android:id="@+id/login_button"
+        android:layout_alignTop="@+id/sign_in_button"
+        android:layout_alignStart="@+id/sign_in_button" />
 
     <Button
         android:layout_marginLeft="@dimen/size_60dp"
@@ -35,25 +29,20 @@
         android:background="@drawable/button_with_round_corner"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/textViewFb"
+        android:layout_below="@+id/login_button"
         android:layout_centerHorizontal="true"
         android:id="@+id/buttonSignup" />
 
-    <TextView
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
         android:elevation="@dimen/cardview_default_elevation"
-        android:text="Login with google+"
         android:background="@color/white"
-        android:textColor="#D32F2F"
         android:gravity="center"
-        android:drawableLeft="@drawable/btn_google_light_normal_ldpi"
-        android:padding="8dp"
         android:layout_marginLeft="@dimen/size_60dp"
         android:layout_marginRight="@dimen/size_60dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="159dp"
-        android:id="@+id/textViewGoogle"
-        android:textSize="14sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
