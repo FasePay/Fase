@@ -29,18 +29,27 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:parentActivityName=".MainActivity"
             android:name="navigation.CardActivity"
             android:label="Transactions"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
 
-        <!--<meta-data-->
-            <!--android:name="com.google.android.maps.v2.API_KEY"-->
-            <!--android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />-->
+        <!---->
+         amit api key pls comment ur api when pushing
+         <meta-data
+         android:name="com.google.android.maps.v2.API_KEY"
+         android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />
+
+
+
+
+         <!--
+         sonu api key pls comment ur api when pushing
+
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyASX_w3x5NBzuvLsXgyXTdluxa1CcDsw5U" />
+            android:value="AIzaSyDsFinPfn8YwC4VYTNa2OsjTcNWgjOQPyk" />-->
 
         <activity android:name=".Home_Page" />
         <activity
@@ -49,38 +58,45 @@
         <activity
             android:name=".UserEntry"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginSignup"
+        <activity
+            android:name=".LoginSignup"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Password_activity"
-            ></activity>
-        <activity android:name=".MainActivity"
+        <activity android:name=".Password_activity"></activity>
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/avatar_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="navigation.User_transaction"
-            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="navigation.User_transaction"
             android:label="Transactions"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".SignUpClient"
-            android:theme="@style/AppTheme"
+        <activity
+            android:name=".SignUpClient"
             android:label="Sign Up"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Register"
             android:label="Register"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".OtpClient"
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
     </application>
 
 </manifest>

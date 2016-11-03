@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
             super.onBackPressed();
         }
     }
@@ -226,6 +227,7 @@ public class MainActivity extends AppCompatActivity
             });
             return view;
         }
+    }
 
         public class InstaPay2 extends Fragment {
             TextView textView;
@@ -268,7 +270,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode==MY_PERMISSION_REQUEST_CAMERA){
