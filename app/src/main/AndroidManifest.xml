@@ -34,8 +34,9 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
 
-        <!---->
-         amit api key pls comment ur api when pushing
+        <!--
+         amit api key pls comment ur api when pushing-->
+
          <meta-data
          android:name="com.google.android.maps.v2.API_KEY"
          android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />
