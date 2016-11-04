@@ -39,18 +39,26 @@
 
          <meta-data
          android:name="com.google.android.maps.v2.API_KEY"
-         android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />
+         android:value="AIzaSyDTEkh-Rq2kORR0Jak23a32eZPkvoJ7AsU" />
 
 
 
+        <!--
 
+                Shashank api key - AIzaSyDTEkh-Rq2kORR0Jak23a32eZPkvoJ7AsU
+                />-->
          <!--
+
          sonu api key pls comment ur api when pushing
 
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDsFinPfn8YwC4VYTNa2OsjTcNWgjOQPyk" />-->
+
+        <!--
+        Amit api key -AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU
+        />-->
 
         <activity android:name=".Home_Page" />
         <activity

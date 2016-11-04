@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -25,8 +24,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class LoginSignup extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener{
-    TextView textViewGoogle,textViewFb;
     GoogleApiClient mGoogleApiClient;
+
     private static final int RC_SIGN_IN = 9001;
     Button button;
     private LoginButton loginButton;
@@ -56,14 +55,14 @@ public class LoginSignup extends AppCompatActivity implements
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginSignup.this,SignUpClient.class));
+                startActivity(new Intent(getApplicationContext(),SignUpClient.class));
             }
         });
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(LoginSignup.this,MainActivity.class));
             }
 
             @Override
@@ -91,7 +90,7 @@ public class LoginSignup extends AppCompatActivity implements
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-           Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+           startActivity(new Intent(this,MainActivity.class));
         } else {
             // Signed out, show unauthenticated UI.
             Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
