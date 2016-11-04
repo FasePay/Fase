@@ -4,17 +4,18 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,14 +26,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import java.io.File;
 
+import Fragment.FavShops_Fragment;
 import Fragment.TransferAndRefill_Fragment;
 import Utils.MyDebugClass;
 import navigation.CardActivity;
@@ -41,10 +39,12 @@ import navigation.User_transaction;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private AHBottomNavigation bottomNavigation;
-    private final String FRAGMENT_TAG = "FTAG";
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
     private int MY_PERMISSION_REQUEST_CAMERA = 100;
     private TextView textView;
+    private final String FRAGMENT_TAG = "FTAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +53,39 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayoutActivity);
+        viewPager = (ViewPager) findViewById(R.id.viewPagerActivity);
+        pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0:
+                        return new InstaPay1();
+                    case 1:
+                        return new TransferAndRefill_Fragment();
+                    case 2:
+                        return new FavShops_Fragment();
+                    case 3:
+                        return new Merchantshop();
+                    default:
+                        return null;
+                }
+            }
 
-        bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottomNavigation);
-        setUpBottomNavigation();
+            @Override
+            public int getCount() {
+                return 4;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return super.getPageTitle(position);
+            }
+        };
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,61 +96,32 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (findViewById(R.id.fragment) != null) {
-            if (savedInstanceState != null) {
-                return;
-            }
-            InstaPay1 fragment = new InstaPay1();
-            fragment.setArguments(getIntent().getExtras());
 
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment, fragment).commit();
-        }
     }
 
-    private void setUpBottomNavigation() {
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Insta pay", R.drawable.ic_give_money);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Transfer & refill", R.drawable.ic_transfer);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Fav shops", R.drawable.ic_favorite_star);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem("Merchant's shop", R.drawable.ic_store_mall_directory_black_24dp);
-        bottomNavigation.addItem(item1);
-        bottomNavigation.addItem(item2);
-        bottomNavigation.addItem(item3);
-        bottomNavigation.addItem(item4);
+    private void setupTabIcons() {
+        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabOne.setText("Insta pay");
+        tabOne.setSelected(true);
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon1, 0, 0);
+        tabLayout.getTabAt(0).setCustomView(tabOne);
 
-        bottomNavigation.setBehaviorTranslationEnabled(false);
-        bottomNavigation.setAccentColor(Color.parseColor("#e86d66"));
-        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#344a5c"));
-        bottomNavigation.setInactiveColor(Color.parseColor("#f8eeef"));
-        bottomtab();
+        TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabTwo.setText("Transfer & refill");
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon2, 0, 0);
+        tabLayout.getTabAt(1).setCustomView(tabTwo);
+
+        TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabThree.setText("Fav shops");
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon3, 0, 0);
+        tabLayout.getTabAt(2).setCustomView(tabThree);
+
+        TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabFour.setText("Shops");
+        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon4, 0, 0);
+        tabLayout.getTabAt(3).setCustomView(tabFour);
     }
 
-    public void bottomtab() {
-        // final FragmentManager fragmentManager = getSupportFragmentManager();
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
-            @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
-                changeView(position);
-                return true;
-            }
-        });
-    }
-
-    private void changeView(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        switch (position){
-            case 0:
-                fragmentManager.beginTransaction().replace(R.id.fragment,new InstaPay1(),FRAGMENT_TAG).addToBackStack(null).commit();
-                break;
-            case 1:
-                fragmentManager.beginTransaction().replace(R.id.fragment,new TransferAndRefill_Fragment(),FRAGMENT_TAG).addToBackStack(null).commit();
-                break;
-            case 3:
-                fragmentManager.beginTransaction().replace(R.id.fragment,new Merchantshop(),FRAGMENT_TAG).addToBackStack(null).commit();
-                break;
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -149,12 +150,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+           // startActivity(new Intent(getApplicationContext(), Home_Page.class));
             return true;
-        }
-
-        else if(id==R.id.action_profile)
-        {
-            Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
+        } else if (id == R.id.action_profile) {
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
             return true;
         }
@@ -170,19 +169,17 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 //
         if (id == R.id.nav_addCard) {
-           startActivity(new Intent(MainActivity.this, CardAdd.class));
+            startActivity(new Intent(MainActivity.this, CardAdd.class));
         } else if (id == R.id.nav_user_transaction) {
-         startActivity(new Intent(MainActivity.this, User_transaction.class));
+            startActivity(new Intent(MainActivity.this, User_transaction.class));
         } else if (id == R.id.nav_merchant_transaction) {
 
-           Intent intent = new Intent(MainActivity.this, CardActivity.class);
-           intent.putExtra("FLAG", true);
-          startActivity(intent);
-        }
-        else if(id==R.id.nav_logOut){
-            startActivity(new Intent(getApplicationContext(),UserEntry.class));
-        }
-        else if(id==R.id.nav_share){
+            Intent intent = new Intent(MainActivity.this, CardActivity.class);
+            intent.putExtra("FLAG", true);
+            startActivity(intent);
+        } else if (id == R.id.nav_logOut) {
+            startActivity(new Intent(getApplicationContext(), UserEntry.class));
+        } else if (id == R.id.nav_share) {
             ApplicationInfo app = getApplicationInfo();
             String filePath = app.sourceDir;
             Intent intent = new Intent(Intent.ACTION_SEND);
@@ -218,69 +215,31 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
 
-                    InstaPay2 su = new InstaPay2();
-                    FragmentManager fragmentManager1 = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-                    fragmentTransaction1.replace(R.id.fragment, su);
-                    fragmentTransaction1.commit();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_REQUEST_CAMERA);
+                            return;
+                        }
+                    }
+                    Intent intent = new Intent(getContext(), QrCodeScanner.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
                 }
             });
             return view;
         }
     }
 
-        public class InstaPay2 extends Fragment {
-            TextView textView;
-            ImageView imageView;
-
-            @Nullable
-            @Override
-            public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-                View view = inflater.inflate(R.layout.fragment_insta_pay2, container, false);
-                textView = (TextView) view.findViewById(R.id.textViewBack);
-                imageView = (ImageView) view.findViewById(R.id.imageViewQr);
-
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                                requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_REQUEST_CAMERA);
-                                return;
-                            }
-                        }
-                        Intent intent = new Intent(getContext(), QrCodeScanner.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent);
-                    }
-                });
-                textView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        InstaPay1 pay1 = new MainActivity.InstaPay1();
-                        FragmentManager fragmentManager1 = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction1 = fragmentManager1.beginTransaction();
-                        fragmentTransaction1.replace(R.id.fragment, pay1);
-                        fragmentTransaction1.commit();
-                    }
-                });
-                return view;
-            }
-        }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode==MY_PERMISSION_REQUEST_CAMERA){
-            if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                Intent intent=new Intent(getApplicationContext(),QrCodeScanner.class);
+        if (requestCode == MY_PERMISSION_REQUEST_CAMERA) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(getApplicationContext(), QrCodeScanner.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
-            }
-            else {
-                MyDebugClass.showToast(getApplicationContext(),"Please check permission to use camera");
+            } else {
+                MyDebugClass.showToast(getApplicationContext(), "Please check permission to use camera");
 
             }
 
@@ -288,7 +247,6 @@ public class MainActivity extends AppCompatActivity
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
 
 
 }
