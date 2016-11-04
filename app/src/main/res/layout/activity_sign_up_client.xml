@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_sign_up_client"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +26,13 @@
             android:id="@+id/imageview_signup_client"
             android:layout_weight="62"
             />
-
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/editTextPhoneNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            app:errorEnabled="true">
         <EditText
             android:paddingLeft="10dp"
             android:hint="Phone Number"
@@ -33,14 +40,19 @@
             android:textColor="@color/textColor"
             android:layout_marginLeft="@dimen/size_40dp"
             android:layout_marginRight="@dimen/size_40dp"
-            android:background="@drawable/button_with_border"
             android:layout_marginTop="@dimen/size_20dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editTextPhoneNo"
+            android:id="@+id/editTextPhone"
             />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
         <EditText
             android:paddingLeft="10dp"
             android:hint="Password"
@@ -48,15 +60,14 @@
             android:textColor="@color/textColor"
             android:layout_marginLeft="@dimen/size_40dp"
             android:layout_marginRight="@dimen/size_40dp"
-            android:background="@drawable/button_with_border"
             android:layout_marginTop="@dimen/size_10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/editTextPaswword_signup"
+            android:id="@+id/editTextPassword_signup"
             />
-
+</android.support.design.widget.TextInputLayout>
 
 
 
