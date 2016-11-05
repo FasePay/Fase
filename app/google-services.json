@@ -13,11 +13,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "895758227539-e933rq1rdf69jou411hbcdvn574dud2r.apps.googleusercontent.com",
+          "client_id": "320663636746-o1gueaa350m9r3u563p67ih9ufdqubur.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.faseapp.faseapp",
-            "certificate_hash": "3F78F39C6B6C8710A4567398F878D62ACB2E06EA"
+            "certificate_hash": "C8EEACC17BAF744C530125ADD2D25C6DF70C5824"
           }
         },
         {
