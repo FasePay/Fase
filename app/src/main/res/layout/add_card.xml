@@ -143,7 +143,7 @@
     </LinearLayout>
     <TextView
 
-        android:text="SKIP"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView7"
@@ -151,7 +151,9 @@
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:textSize="22sp"/>
+
     <Button
+        android:stateListAnimator="@null"
         android:layout_marginLeft="@dimen/size_30dp"
         android:layout_marginRight="@dimen/size_30dp"
         android:text="Add"

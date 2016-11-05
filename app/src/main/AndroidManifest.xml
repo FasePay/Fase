@@ -64,20 +64,20 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginSignup"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Password_activity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Password_activity"/>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ProfileActivity"
             android:label="@string/avatar_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="navigation.User_transaction"
             android:label="Transactions"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".SignUpClient"
             android:label="Sign Up"
@@ -86,6 +86,7 @@
         <activity
             android:name=".Register"
             android:label="Register"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity

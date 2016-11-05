@@ -51,6 +51,7 @@
         android:ems="10"
         android:id="@+id/editText7" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/editTextaddress"
         android:layout_width="match_parent"
@@ -107,10 +108,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
         app:counterEnabled="true"
-        app:counterMaxLength="6"
+
         app:errorEnabled="true">
 
         <EditText
+            android:maxLength="6"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -124,19 +126,20 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
         app:counterEnabled="true"
-        app:counterMaxLength="10"
+
         app:errorEnabled="true">
     <EditText
+        android:maxLength="10"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"
+        android:inputType="number"
         android:ems="10"
         android:id="@+id/editText11"
         android:hint="Phone Number" />
 </android.support.design.widget.TextInputLayout>
     <Button
-
+        android:stateListAnimator="@null"
         android:layout_marginTop="@dimen/pad_30dp"
         android:layout_marginBottom="@dimen/pad_5dp"
         android:textColor="@color/white"

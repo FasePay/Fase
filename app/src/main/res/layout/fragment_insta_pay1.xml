@@ -8,6 +8,7 @@
     android:weightSum="100">
 
     <Button
+        android:stateListAnimator="@null"
         android:layout_margin="@dimen/size_20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,6 +53,7 @@
         android:layout_gravity="center_horizontal" />
 
     <Button
+        android:stateListAnimator="@null"
         android:background="@drawable/button_border_redbg"
         android:layout_margin="@dimen/size_10dp"
         android:layout_width="match_parent"
