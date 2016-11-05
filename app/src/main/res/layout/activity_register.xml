@@ -19,8 +19,6 @@
         android:id="@+id/editTextcname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         app:errorEnabled="true">
     <EditText
         android:layout_marginTop="@dimen/pad_5dp"
@@ -36,8 +34,6 @@
         android:id="@+id/editTextname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         app:errorEnabled="true">
     <EditText
         android:layout_marginTop="@dimen/pad_5dp"
@@ -53,8 +49,6 @@
         android:id="@+id/editTextaddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         app:errorEnabled="true">
 
     <EditText
@@ -71,8 +65,6 @@
         android:id="@+id/editTextcity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         app:errorEnabled="true">
 
     <EditText
