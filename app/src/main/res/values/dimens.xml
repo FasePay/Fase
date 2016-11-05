@@ -17,4 +17,9 @@
     <dimen name="size_15dp">15dp</dimen>
     <dimen name="pad_15dp">15dp</dimen>
     <dimen name="pad_10dp">10dp</dimen>
+    <dimen name="pad_3dp">3dp</dimen>
+    <dimen name="pad_50dp">50dp</dimen>
+    <dimen name="pad_20dp">20dp</dimen>
+    <dimen name="pad_30dp">30dp</dimen>
+    <dimen name="pad_60dp">60dp</dimen>
 </resources>
