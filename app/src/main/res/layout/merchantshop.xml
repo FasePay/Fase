@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"/>
 
-</LinearLayout>
+        />
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_margin="@dimen/pad_10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/map">
+
+        <EditText
+            android:background="@android:color/transparent"
+            android:hint="Search Google maps"
+            android:paddingLeft="@dimen/pad_10dp"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="90"
+                android:layout_height="wrap_content"
+                android:id="@+id/TFaddress"/>
+
+            <ImageButton
+
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:background="@drawable/ic_action_search"
+                android:layout_weight="10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/button"
+                android:text="@null"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_marginRight="@dimen/pad_5dp"
+        android:layout_marginBottom="@dimen/pad_5dp"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:layout_width="50dp"
+        android:layout_height="101dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" >
+        <Button
+            android:textSize="25sp"
+            android:layout_gravity="top"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="+"
+            android:textColor="@color/black"
+            android:id="@+id/zoomin"/>
+        <View
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:alpha="0.5"/>
+
+        <Button
+            android:textSize="25sp"
+            android:layout_gravity="bottom"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:text="-"
+            android:id="@+id/zoomout"/>
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.faseapp.faseapp">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -35,8 +36,8 @@
             android:theme="@style/AppTheme" />
 
         <!--
-         amit api key pls comment ur api when pushing-->
-
+         amit api key pls comment ur api when pushing
+ -->
          <meta-data
          android:name="com.google.android.maps.v2.API_KEY"
          android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />
@@ -50,8 +51,8 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDsFinPfn8YwC4VYTNa2OsjTcNWgjOQPyk" />-->
-
+            android:value="AIzaSyDsFinPfn8YwC4VYTNa2OsjTcNWgjOQPyk" />
+        -->
         <activity android:name=".Home_Page" />
         <activity
             android:name=".QrCodeScanner"
