@@ -39,22 +39,22 @@
 
         <!--
          amit api key pls comment ur api when pushing
- -->
+
          <meta-data
          android:name="com.google.android.maps.v2.API_KEY"
          android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />
 
-
+        -->
 
 
          <!--
          sonu api key pls comment ur api when pushing
-
+-->
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDsFinPfn8YwC4VYTNa2OsjTcNWgjOQPyk" />
-        -->
+
         <activity android:name=".Home_Page" />
         <activity
             android:name=".QrCodeScanner"
