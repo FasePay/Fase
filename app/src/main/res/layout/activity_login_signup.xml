@@ -8,6 +8,13 @@
     android:background="@drawable/loginsign"
     tools:context="com.faseapp.faseapp.LoginSignup">
 
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true" />
 
     <com.facebook.login.widget.LoginButton
         android:elevation="@dimen/cardview_default_elevation"

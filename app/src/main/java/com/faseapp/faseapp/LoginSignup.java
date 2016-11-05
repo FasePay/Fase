@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -25,7 +26,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class LoginSignup extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener{
     GoogleApiClient mGoogleApiClient;
-
+    ProgressBar pbar;
     private static final int RC_SIGN_IN = 9001;
     Button button;
     private LoginButton loginButton;
@@ -40,9 +41,11 @@ public class LoginSignup extends AppCompatActivity implements
         loginButton = (LoginButton)findViewById(R.id.login_button);
         button= (Button) findViewById(R.id.buttonSignup);
         signIn= (SignInButton) findViewById(R.id.sign_in_button);
+        pbar= (ProgressBar) findViewById(R.id.progressBar1);
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pbar.setVisibility(View.VISIBLE);
                 signIn();
             }
         });
@@ -67,17 +70,18 @@ public class LoginSignup extends AppCompatActivity implements
 
             @Override
             public void onCancel() {
-            Toast.makeText(getApplicationContext(),"Login Cancelled",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Login Cancelled",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException e) {
-                Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_SHORT).show();
             }
         });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        pbar.setVisibility(View.GONE);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
@@ -88,12 +92,13 @@ public class LoginSignup extends AppCompatActivity implements
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
+        pbar.setVisibility(View.GONE);
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
            startActivity(new Intent(this,MainActivity.class));
         } else {
             // Signed out, show unauthenticated UI.
-            Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -106,7 +111,7 @@ public class LoginSignup extends AppCompatActivity implements
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
     }
 
 }
