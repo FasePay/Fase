@@ -160,12 +160,12 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
 
     // has not been used
     private void checkPerm() {
-        MyDebugClass.showLog("entered in checkperm");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            MyDebugClass.showLog("if else");
+
             if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_REQUEST_FINE);
-                MyDebugClass.showLog("permission check krna h");
+
             }
             setMapCamera();
         } else {
@@ -195,7 +195,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         List<String> providers = lm.getProviders(true);
         Location location = null;
-        MyDebugClass.showLog("other me ghusa");
+
         for (int i = providers.size() - 1; i >= 0; i--) {
             if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
@@ -207,7 +207,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         }
         if (location != null) {
 
-            MyDebugClass.showLog("location not null me aa gya bhai");
+
             double longitude = location.getLongitude();
             double latitude = location.getLatitude();
             LatLng latlng = new LatLng(latitude, longitude);
