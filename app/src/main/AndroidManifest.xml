@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.faseapp.faseapp">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -39,14 +38,17 @@
 
         <!--
          amit api key pls comment ur api when pushing
+         AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU
  -->
          <meta-data
          android:name="com.google.android.maps.v2.API_KEY"
-         android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />
+         android:value="AIzaSyDTEkh-Rq2kORR0Jak23a32eZPkvoJ7AsU" />
 
 
 
-
+<!--
+Shashank api key - AIzaSyDTEkh-Rq2kORR0Jak23a32eZPkvoJ7AsU
+-->
          <!--
          sonu api key pls comment ur api when pushing
 
