@@ -7,6 +7,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -44,13 +47,27 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class Merchantshop extends Fragment implements OnMapReadyCallback {
     private static final int MY_PERMISSION_REQUEST_FINE = 1;
-    private static final int MY_PERMISSION_REQUEST_COARSE = 2;
+    private static final int MY_NETWORK_STATE = 2;
+    private static final int MY_MAP_NETWORK_STATE = 3;
     MapView mMapView;
     CameraUpdate camera;
     private GoogleMap mMap;
     public EditText editText;
     Marker marker;
 //    private final String LOG_TAG = "FTAG";
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+        if (isInternetAvailable(1)) {
+            mMapView.getMapAsync(this);
+        }
+        else
+        {
+            Toast.makeText(getActivity().getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+        }
+        super.onActivityCreated(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,6 +79,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         editText = (EditText) view.findViewById(R.id.TFaddress);
         ImageButton btn = (ImageButton) view.findViewById(R.id.button);
         Button btn3 = (Button) view.findViewById(R.id.zoomin);
+
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,38 +102,44 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
-                String location = editText.getText().toString();
-                List<Address> addressList = null;
-                if (location != null && location.length() > 0) {
-                    if (marker != null)
-                        marker.remove();
-                    Geocoder geocoder = new Geocoder(getActivity());
-                    try {
-                        addressList = geocoder.getFromLocationName(location, 5);
-                        if (addressList == null) {
-                            Log.v("ADDRESS NULL", "ADDRESS NULL");
-                            return;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if (addressList.size() > 0) {
-                        Address address = addressList.get(0);
-                        Log.v("ADDRESS", address.getLocality());
-                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                        marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                    }
+                if (isInternetAvailable(2)) {
+                    doWork();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
                 }
+
             }
 
-
         });
-
-        mMapView.getMapAsync(this);
         return view;
     }
 
+    public void doWork()
+    {
+        String location = editText.getText().toString();
+        List<Address> addressList = null;
+        if (location != null && location.length() > 0) {
+            if (marker != null)
+                marker.remove();
+            Geocoder geocoder = new Geocoder(getActivity());
+            try {
+                addressList = geocoder.getFromLocationName(location, 5);
+                if (addressList == null) {
+                    Log.v("ADDRESS NULL", "ADDRESS NULL");
+                    return;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (addressList.size() > 0) {
+                Address address = addressList.get(0);
+                Log.v("ADDRESS", address.getLocality());
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
+        }
+    }
     @Override
     public void onPause() {
         super.onPause();
@@ -188,6 +212,20 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             }
 
         }
+        else if(requestCode==MY_NETWORK_STATE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+              doWork();
+            } else {
+                MyDebugClass.showToast(getApplicationContext(), "Please check internet permission");
+
+            }
+        }
+        else if(requestCode==MY_MAP_NETWORK_STATE)
+        {
+            mMapView.getMapAsync(this);
+        }
+        else
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -216,5 +254,37 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             marker = mMap.addMarker(new MarkerOptions().position(latlng).title("Marker"));
 
         }
+    }
+
+    public boolean isInternetAvailable(int i) {
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+                if(i==2)
+                requestPermissions(new String[]{Manifest.permission.ACCESS_NETWORK_STATE},MY_NETWORK_STATE);
+                else
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_NETWORK_STATE},MY_MAP_NETWORK_STATE);
+            }
+            else
+            {
+                return connectionResult();
+            }
+        }
+        else
+        {
+            return connectionResult();
+        }
+
+        return connectionResult();
+    }
+
+    public boolean connectionResult()
+    {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 }
