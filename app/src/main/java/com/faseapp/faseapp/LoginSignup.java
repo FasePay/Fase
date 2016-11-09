@@ -66,6 +66,7 @@ public class LoginSignup extends AppCompatActivity implements
             @Override
             public void onSuccess(LoginResult loginResult) {
                 startActivity(new Intent(LoginSignup.this,MainActivity.class));
+                finish();
             }
 
             @Override
