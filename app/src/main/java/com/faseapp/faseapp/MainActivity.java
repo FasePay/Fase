@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -66,7 +67,15 @@ public class MainActivity extends AppCompatActivity
                     case 2:
                         return new FavShops_Fragment();
                     case 3:
-                        return new Merchantshop();
+                        if (isGoogleMapsInstalled())
+                        {
+                            return new Merchantshop();
+                        }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Install Google Play Services First",Toast.LENGTH_LONG).show();
+                        return new InstaPay1();
+                    }
                     default:
                         return null;
                 }
@@ -98,7 +107,6 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-
     private void setupTabIcons() {
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText("Insta pay");
@@ -230,6 +238,19 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public boolean isGoogleMapsInstalled()
+    {
+
+        try
+        {
+            ApplicationInfo info = getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0 );
+            return true;
+        }
+        catch(PackageManager.NameNotFoundException e)
+        {
+            return false;
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

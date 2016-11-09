@@ -15,7 +15,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +50,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
     private static final int MY_MAP_NETWORK_STATE = 3;
     MapView mMapView;
     CameraUpdate camera;
-    private GoogleMap mMap;
+    private GoogleMap mMap=null;
     public EditText editText;
     Marker marker;
 //    private final String LOG_TAG = "FTAG";
@@ -124,20 +123,32 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             Geocoder geocoder = new Geocoder(getActivity());
             try {
                 addressList = geocoder.getFromLocationName(location, 5);
-                if (addressList == null) {
-                    Log.v("ADDRESS NULL", "ADDRESS NULL");
+                if (addressList == null || addressList.size()==0) {
+                   Toast.makeText(getActivity().getApplicationContext(),"ADDRESS NOT FOUND",Toast.LENGTH_SHORT).show();
                     return;
+                }
+                else if (addressList.size() > 0) {
+                    Address address = addressList.get(0);
+                    if(address!=null) {
+
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    }
+                    else
+                    {
+
+                        Toast.makeText(getActivity().getApplicationContext(), "PLACE NOT FOUND", Toast.LENGTH_SHORT).show();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (addressList.size() > 0) {
-                Address address = addressList.get(0);
-                Log.v("ADDRESS", address.getLocality());
-                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
+
+        }
+        else
+        {
+            Toast.makeText(getActivity().getApplicationContext(),"PLACE NOT FOUND",Toast.LENGTH_SHORT).show();
         }
     }
     @Override
@@ -191,6 +202,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_REQUEST_FINE);
 
             }
+            else
             setMapCamera();
         } else {
                 setMapCamera();
@@ -241,7 +253,6 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             location = lm.getLastKnownLocation(providers.get(i));
             if (location != null)
                 break;
-
         }
         if (location != null) {
 
@@ -253,6 +264,10 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,14));
             marker = mMap.addMarker(new MarkerOptions().position(latlng).title("Marker"));
 
+        }
+        else
+        {
+            Toast.makeText(getActivity().getApplicationContext(),"ADDRESS NOT FOUND",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -287,4 +302,6 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
+
+
 }
