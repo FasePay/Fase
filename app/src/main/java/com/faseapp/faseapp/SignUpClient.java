@@ -60,8 +60,10 @@ public class SignUpClient extends AppCompatActivity {
                     phnno.setError("Enter phone no");
                 else if(password.getEditText().getText().toString().trim().length()==0)
                     password.setError("Enter password");
-                else
-                    startActivity(new Intent(SignUpClient.this,OtpClient.class));
+                else {
+                    startActivity(new Intent(SignUpClient.this, OtpClient.class));
+                    finish();
+                }
             }
         });
     }

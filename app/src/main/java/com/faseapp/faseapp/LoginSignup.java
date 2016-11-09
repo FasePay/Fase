@@ -66,6 +66,7 @@ public class LoginSignup extends AppCompatActivity implements
             @Override
             public void onSuccess(LoginResult loginResult) {
                 startActivity(new Intent(LoginSignup.this,MainActivity.class));
+                finish();
             }
 
             @Override
@@ -107,6 +108,7 @@ public class LoginSignup extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent,RC_SIGN_IN);
+        finish();
     }
 
     @Override
