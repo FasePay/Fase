@@ -19,6 +19,7 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 //starting activity
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
             }
         });
     }
