@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutActivity);
         viewPager = (ViewPager) findViewById(R.id.viewPagerActivity);
+
         pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

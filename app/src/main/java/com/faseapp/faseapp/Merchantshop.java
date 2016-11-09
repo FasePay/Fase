@@ -1,6 +1,7 @@
 package com.faseapp.faseapp;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -75,6 +76,12 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.merchantshop, container, false);
         mMapView = (MapView) view.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
+        mMapView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard(view);
+            }
+        });
         editText = (EditText) view.findViewById(R.id.TFaddress);
         ImageButton btn = (ImageButton) view.findViewById(R.id.button);
         Button btn3 = (Button) view.findViewById(R.id.zoomin);
@@ -98,8 +105,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
                 View view = getActivity().getCurrentFocus();
                 if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    hideKeyboard(view);
                 }
                 if (isInternetAvailable(2)) {
                     doWork();
@@ -188,6 +194,12 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             return; // Google Maps not available
 
         mMap = googleMap;
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                hideKeyboard(getView());
+            }
+        });
         MyDebugClass.showLog("on Map ready");
         checkPerm();
 
@@ -303,5 +315,9 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
 }
