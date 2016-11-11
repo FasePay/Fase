@@ -70,39 +70,39 @@
             android:id="@+id/editText8" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editTextcity"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pad_60dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
-        app:errorEnabled="true">
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:orientation="horizontal">
+      <model.CustomSpinner
+          android:id="@+id/spinner_state"
+          style="@style/Widget.AppCompat.Spinner"
+          android:layout_width="160dp"
+          android:layout_marginLeft="4dp"
+          android:dropDownWidth="160dp"
+          android:layout_height="?attr/dropdownListPreferredItemHeight"
+          android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+          android:background="@drawable/spinner_bg"
+          android:popupBackground="@android:color/white"
+          android:paddingRight="14dp"
+          android:stateListAnimator="@drawable/spinner_sla"
+          android:popupElevation="3dp"/>
+     <model.CustomSpinner
+          android:id="@+id/spinner"
+          style="@style/Widget.AppCompat.Spinner"
+          android:layout_width="140dp"
+          android:dropDownWidth="140dp"
+          android:layout_marginLeft="16dp"
+          android:layout_height="?attr/dropdownListPreferredItemHeight"
+          android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"
+          android:background="@drawable/spinner_bg"
+          android:popupBackground="@android:color/white"
+          android:paddingRight="14dp"
+          android:stateListAnimator="@drawable/spinner_sla"
+          android:popupElevation="3dp"/>
+  </LinearLayout>
 
-        <EditText
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="City"
-            android:ems="10"
-            android:id="@+id/editText10" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editTextstate"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/pad_60dp"
-        app:errorEnabled="true">
-
-        <EditText
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="State"
-            android:ems="10"
-            android:id="@+id/editText13" />
-    </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/editTextPincode"
         android:layout_width="match_parent"
