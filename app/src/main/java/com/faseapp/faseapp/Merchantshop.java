@@ -54,6 +54,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap=null;
     public EditText editText;
     Marker marker;
+    String value;
 //    private final String LOG_TAG = "FTAG";
 
     @Override
@@ -83,6 +84,11 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             }
         });
         editText = (EditText) view.findViewById(R.id.TFaddress);
+        Bundle arguments = getArguments();
+        if(arguments!=null) {
+            value = getArguments().getString("favshop");
+            setfavshop(value);
+        }
         ImageButton btn = (ImageButton) view.findViewById(R.id.button);
         Button btn3 = (Button) view.findViewById(R.id.zoomin);
 
@@ -118,6 +124,44 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         });
         return view;
     }
+
+    public void setfavshop(String name){
+        List<Address> addressList = null;
+        if (name != null && name.length() > 0) {
+            //  if (marker != null)
+            //  marker.remove();
+            Geocoder geocoder = new Geocoder(getActivity());
+            try {
+                addressList = geocoder.getFromLocationName(name, 1);
+                if (addressList == null || addressList.size()==0) {
+                    Toast.makeText(getActivity().getApplicationContext(),"ADDRESS NOT FOUND",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (addressList.size() > 0) {
+                    Address address = addressList.get(0);
+                    if(address!=null) {
+
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                    }
+                    else
+                    {
+
+                        Toast.makeText(getActivity().getApplicationContext(), "PLACE NOT FOUND", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else
+        {
+            Toast.makeText(getActivity().getApplicationContext(),"PLACE NOT FOUND",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     public void doWork()
     {
