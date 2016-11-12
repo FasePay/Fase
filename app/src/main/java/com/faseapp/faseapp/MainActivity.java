@@ -12,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
@@ -30,7 +32,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import Fragment.FavShops_Fragment;
 import Fragment.TransferAndRefill_Fragment;
@@ -47,6 +53,16 @@ public class MainActivity extends AppCompatActivity
     private int MY_PERMISSION_REQUEST_CAMERA = 100;
     private TextView textView;
     private final String FRAGMENT_TAG = "FTAG";
+    String TabFragmentB;
+
+    public void setTabFragmentB(String t){
+        TabFragmentB = t;
+    }
+
+    public String getTabFragmentB(){
+        return TabFragmentB;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +73,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutActivity);
         viewPager = (ViewPager) findViewById(R.id.viewPagerActivity);
-
-        pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+        setupViewPager(viewPager);
+       /* pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
@@ -92,11 +108,12 @@ public class MainActivity extends AppCompatActivity
             public CharSequence getPageTitle(int position) {
                 return super.getPageTitle(position);
             }
-        };
-        viewPager.setAdapter(pagerAdapter);
+        };*/
+       // viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
         setupTabIcons();
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+       // viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -130,6 +147,54 @@ public class MainActivity extends AppCompatActivity
         tabFour.setText("Shops");
         tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.icon4, 0, 0);
         tabLayout.getTabAt(3).setCustomView(tabFour);
+         //  bottomtab();
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new InstaPay1(), "Insta pay");
+        adapter.addFrag(new TransferAndRefill_Fragment(), "Transfer & refill");
+        adapter.addFrag(new FavShops_Fragment(), "Fav shops");
+        adapter.addFrag(new Merchantshop(), "Shops");
+        viewPager.setAdapter(adapter);
+    }
+    public void bottomtab() {
+        // final FragmentManager fragmentManager = getSupportFragmentManager();
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+               // changeView(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+
+    private void changeView(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        switch (position) {
+            case 0:
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new InstaPay1(), FRAGMENT_TAG).addToBackStack(null).commit();
+                break;
+            case 1:
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new TransferAndRefill_Fragment(), FRAGMENT_TAG).addToBackStack(null).commit();
+                break;
+            case 2:
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new FavShops_Fragment(), FRAGMENT_TAG).addToBackStack(null).commit();
+                break;
+            case 3:
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new Merchantshop(), FRAGMENT_TAG).addToBackStack(null).commit();
+                break;
+        }
     }
 
 
@@ -269,6 +334,35 @@ public class MainActivity extends AppCompatActivity
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
 

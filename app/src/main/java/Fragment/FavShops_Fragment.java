@@ -5,6 +5,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.faseapp.faseapp.MainActivity;
 import com.faseapp.faseapp.Merchantshop;
 import com.faseapp.faseapp.R;
 
@@ -41,7 +43,7 @@ public class FavShops_Fragment extends Fragment {
                     try{
                         addressList = geocoder.getFromLocationName(shop, 1);
                         if (addressList == null || addressList.size()==0) {
-                            Toast.makeText(getActivity().getApplicationContext(),"ADDRESS NOT FOUND",Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity().getApplicationContext(),"ADDRESS NOT FOUND",Toast.LENGTH_SHORT).show();
                             return;
                         }
                         else if (addressList.size() > 0) {
@@ -50,8 +52,12 @@ public class FavShops_Fragment extends Fragment {
                                 Bundle args = new Bundle();
                                 args.putString("favshop", shop);
                                 Fragment sp=new Merchantshop();
-                                sp.setArguments(args);
-                                getFragmentManager().beginTransaction().add(R.id.content_frame, sp).commit();
+                                String TabOfFragmentB = ((MainActivity)getActivity()).getTabFragmentB();
+                                Merchantshop shopm=(Merchantshop)getActivity().getSupportFragmentManager().findFragmentByTag(TabOfFragmentB);
+                                shopm.setfavshop(shop);
+                           //     sp.setArguments(args);
+                                Log.d("Name",shop);
+                              //  getFragmentManager().beginTransaction().add(R.id.content_frame, sp).addToBackStack(null).commit();
                             }
                             else
                             {
