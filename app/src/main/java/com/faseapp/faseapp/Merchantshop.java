@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +54,9 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
     CameraUpdate camera;
     private GoogleMap mMap=null;
     public EditText editText;
-    Marker marker;
+    Marker marker,marker1;
     String value;
+    Bundle arguments;
 //    private final String LOG_TAG = "FTAG";
 
     @Override
@@ -77,6 +79,8 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.merchantshop, container, false);
         mMapView = (MapView) view.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
+        String myTag = getTag();
+        ((MainActivity)getActivity()).setTabFragmentB(myTag);
         mMapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,11 +88,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             }
         });
         editText = (EditText) view.findViewById(R.id.TFaddress);
-        Bundle arguments = getArguments();
-        if(arguments!=null) {
-            value = getArguments().getString("favshop");
-            setfavshop(value);
-        }
+         arguments = getArguments();
         ImageButton btn = (ImageButton) view.findViewById(R.id.button);
         Button btn3 = (Button) view.findViewById(R.id.zoomin);
 
@@ -130,6 +130,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         if (name != null && name.length() > 0) {
             //  if (marker != null)
             //  marker.remove();
+            Log.d("Nme",name);
             Geocoder geocoder = new Geocoder(getActivity());
             try {
                 addressList = geocoder.getFromLocationName(name, 1);
@@ -140,9 +141,9 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
                 else if (addressList.size() > 0) {
                     Address address = addressList.get(0);
                     if(address!=null) {
-
+                        Log.d("Nme",name);
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                        marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                        marker1 = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
                         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                     }
                     else
@@ -258,11 +259,24 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_REQUEST_FINE);
 
             }
-            else
-            setMapCamera();
-        } else {
+            else {
                 setMapCamera();
-                mMap.setMyLocationEnabled(true);
+              /*  if(arguments!=null) {
+                    value = getArguments().getString("favshop");
+
+                    setfavshop(value);
+                }*/
+
+            }
+        } else {
+            setMapCamera();
+            mMap.setMyLocationEnabled(true);
+           /* if(arguments!=null) {
+                value = getArguments().getString("favshop");
+
+                setfavshop(value);
+            }*/
+
 
             }
 
