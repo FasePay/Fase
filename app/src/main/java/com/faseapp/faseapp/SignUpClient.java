@@ -56,11 +56,16 @@ public class SignUpClient extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(phnno.getEditText().getText().toString().trim().length()==0)
-                    phnno.setError("Enter phone no");
-                else if(password.getEditText().getText().toString().trim().length()==0)
-                    password.setError("Enter password");
-                else {
+                boolean flag=true;
+                if(phnno.getEditText().getText().toString().trim().length()!=10) {
+                    phnno.setError("Invalid phone no");
+                    flag = false;
+                }
+                 if(password.getEditText().getText().toString().trim().length()<6) {
+                     password.setError("Invalid password");
+                     flag = false;
+                 }
+              if(flag){
                     startActivity(new Intent(SignUpClient.this, OtpClient.class));
                     finish();
                 }

@@ -20,13 +20,10 @@
         android:id="@+id/editTextcname"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         app:errorEnabled="true">
 
         <EditText
             android:layout_gravity="center"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -38,12 +35,8 @@
         android:id="@+id/editTextname"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         app:errorEnabled="true">
     <EditText
-
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -56,8 +49,6 @@
         android:id="@+id/editTextaddress"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="10"
         app:errorEnabled="true">
 
         <EditText
@@ -108,7 +99,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
         app:counterEnabled="true"
-
         app:errorEnabled="true">
 
         <EditText
@@ -126,7 +116,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
         app:counterEnabled="true"
-
         app:errorEnabled="true">
     <EditText
         android:maxLength="10"

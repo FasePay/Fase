@@ -5,4 +5,19 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/editTextPass" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="8dp" app:errorEnabled="true"><EditText android:maxLength="6" android:layout_gravity="center" android:layout_width="match_parent" android:layout_height="wrap_content" android:ems="10" android:id="@+id/txtfavshop" android:hint="Enter your fav shop"/></android.support.design.widget.TextInputLayout><Button android:id="@+id/btnsave" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:text="Save" android:textColor="#e86d66"/></LinearLayout>
+        android:id="@+id/editTextPass" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="8dp" app:errorEnabled="true">
+        <EditText  android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/txtfavshop"
+            android:hint="Enter your fav shop"/>
+    </android.support.design.widget.TextInputLayout>
+    <Button
+        android:id="@+id/btnsave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Save"
+        android:textColor="#e86d66"/>
+</LinearLayout>

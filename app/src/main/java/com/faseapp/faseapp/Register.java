@@ -1,12 +1,15 @@
 package com.faseapp.faseapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ import model.CSVFile;
 import model.CustomSpinner;
 
 public class Register extends AppCompatActivity {
+    EditText editText1,editText2,editText3,editText4,editText5;
     Button button;
     ArrayAdapter adapter;
     List<String> cities=new ArrayList<>();
@@ -24,6 +28,11 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         button= (Button) findViewById(R.id.buttonRegister);
+        editText1= (EditText) findViewById(R.id.editText6);
+        editText2= (EditText) findViewById(R.id.editText7);
+        editText3= (EditText) findViewById(R.id.editText8);
+        editText4= (EditText) findViewById(R.id.editText12);
+        editText5= (EditText) findViewById(R.id.editText11);
         cities.add("City");
 
         InputStream inputStream = getResources().openRawResource(R.raw.india_state_city_database_list);
@@ -96,11 +105,42 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //starting activity
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                finish();
+                boolean flag1=(editText1.getText().toString()!=null) && (isAlpha(editText1.getText().toString())) &&(editText1.getText().toString().length()>=3);
+                boolean flag2=(editText2.getText().toString()!=null) && (isAlpha(editText2.getText().toString())) &&(editText3.getText().toString().length()>=6);
+                boolean flag3=(editText3.getText().toString()!=null)  &&(editText3.getText().toString().length()>=10);
+                boolean flag4=(editText4.getText().toString()!=null)  &&(editText4.getText().toString().length()==6);
+                boolean flag5=(editText5.getText().toString()!=null)  &&(editText5.getText().toString().length()==10);
+                if(flag1 && flag2 && flag3 && flag4 && flag5) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+                else
+                {
+                    new AlertDialog.Builder(Register.this)
+                            .setTitle("Fill up")
+                            .setMessage("Please fill all the fields properly")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
             }
         });
     }
 
+    public boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 }

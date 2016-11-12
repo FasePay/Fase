@@ -30,11 +30,11 @@ public class FavShops_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_fav_shops,container,false);
         shopname=(EditText)view.findViewById(R.id.txtfavshop);
-        shop=shopname.getText().toString();
         save=(Button)view.findViewById(R.id.btnsave);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                shop=shopname.getText().toString();
                 List<Address> addressList = null;
                 if(shop.trim().length()!=0){
                     Geocoder geocoder = new Geocoder(getActivity());
