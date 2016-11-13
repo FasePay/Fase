@@ -61,7 +61,6 @@ public class LoginSignup extends AppCompatActivity implements
                 startActivity(new Intent(getApplicationContext(),SignUpClient.class));
             }
         });
-
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -108,7 +107,7 @@ public class LoginSignup extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent,RC_SIGN_IN);
-        finish();
+       // finish();
     }
 
     @Override

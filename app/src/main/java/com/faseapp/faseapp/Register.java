@@ -1,9 +1,7 @@
 package com.faseapp.faseapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +20,7 @@ public class Register extends AppCompatActivity {
     EditText editText1,editText2,editText3,editText4,editText5;
     Button button;
     ArrayAdapter adapter;
+
     List<String> cities=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,7 @@ public class Register extends AppCompatActivity {
         editText3= (EditText) findViewById(R.id.editText8);
         editText4= (EditText) findViewById(R.id.editText12);
         editText5= (EditText) findViewById(R.id.editText11);
+
         cities.add("City");
 
         InputStream inputStream = getResources().openRawResource(R.raw.india_state_city_database_list);
@@ -116,16 +116,19 @@ public class Register extends AppCompatActivity {
                 }
                 else
                 {
-                    new AlertDialog.Builder(Register.this)
-                            .setTitle("Fill up")
-                            .setMessage("Please fill all the fields properly")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // continue with delete
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                  if(!flag1)
+                     editText1.setError("Length should be atleast 3");
+                    if(!flag2)
+                        editText2.setError("Name should be of atleast 6 charactar length");
+                    if(!flag3)
+                       editText3.setError("Length should be atleast 10");
+                    if(!flag4)
+                       editText4.setError("Should consist of 6 digits");
+                    if(!flag5) {
+                       editText5.setError("Should consist of 10 digits");
+
+                    }
+
                 }
             }
         });

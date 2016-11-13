@@ -58,11 +58,11 @@ public class SignUpClient extends AppCompatActivity {
             public void onClick(View v) {
                 boolean flag=true;
                 if(phnno.getEditText().getText().toString().trim().length()!=10) {
-                    phnno.setError("Invalid phone no");
+                    phnno.setError("Invalid phone no should be 10 digits");
                     flag = false;
                 }
                  if(password.getEditText().getText().toString().trim().length()<6) {
-                     password.setError("Invalid password");
+                     password.setError("Invalid password length should be atleast 6");
                      flag = false;
                  }
               if(flag){

@@ -49,7 +49,7 @@ public class OtpClient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(otptext.getText().toString().trim().length()!=6)
-                    otp.setError("Invalid otp");
+                    otp.setError("Invalid otp should be exact six digits");
                 else
                     startActivity(new Intent(OtpClient.this,MainActivity.class));
             }

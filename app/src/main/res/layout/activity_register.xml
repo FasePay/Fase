@@ -12,7 +12,6 @@
     android:paddingTop="@dimen/pad_15dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-
     android:orientation="vertical"
     tools:context="com.faseapp.faseapp.Register">
 
@@ -117,18 +116,18 @@
         android:layout_height="@dimen/pad_60dp"
         app:counterEnabled="true"
         app:errorEnabled="true">
-    <EditText
-        android:maxLength="10"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/editText11"
-        android:hint="Phone Number" />
-</android.support.design.widget.TextInputLayout>
+
+        <EditText
+            android:maxLength="10"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText11"
+            android:hint="Phone Number" />
+    </android.support.design.widget.TextInputLayout>
     <Button
-        android:stateListAnimator="@null"
         android:layout_marginTop="@dimen/pad_30dp"
         android:layout_marginBottom="@dimen/pad_5dp"
         android:textColor="@color/white"

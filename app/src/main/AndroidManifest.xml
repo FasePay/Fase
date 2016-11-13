@@ -19,6 +19,9 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".Splash"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,11 +41,12 @@
             android:theme="@style/AppTheme" />
 
         <!--
-         amit api key pls comment ur api when pushing-->
+         amit api key pls comment ur api when pushing
+         AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU-->
 
          <meta-data
          android:name="com.google.android.maps.v2.API_KEY"
-         android:value="AIzaSyA_WJnGFGk56cd8ApKsWyGa3STdmuRblkU" />
+         android:value="AIzaSyDTEkh-Rq2kORR0Jak23a32eZPkvoJ7AsU" />
 
 
 
