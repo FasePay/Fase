@@ -55,6 +55,7 @@ public class FavShops_Fragment extends Fragment {
                                 String TabOfFragmentB = ((MainActivity)getActivity()).getTabFragmentB();
                                 Merchantshop shopm=(Merchantshop)getActivity().getSupportFragmentManager().findFragmentByTag(TabOfFragmentB);
                                 shopm.setfavshop(shop);
+                                shopname.setText(" ");
                            //     sp.setArguments(args);
                                 Log.d("Name",shop);
                               //  getFragmentManager().beginTransaction().add(R.id.content_frame, sp).addToBackStack(null).commit();

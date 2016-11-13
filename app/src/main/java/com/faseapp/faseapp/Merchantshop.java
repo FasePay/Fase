@@ -142,6 +142,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
                     Address address = addressList.get(0);
                     if(address!=null) {
                         Log.d("Nme",name);
+                        Toast.makeText(getActivity(),name+" added successfully",Toast.LENGTH_LONG).show();
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                         marker1 = mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
                         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));

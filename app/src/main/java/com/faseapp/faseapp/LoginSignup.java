@@ -59,6 +59,7 @@ public class LoginSignup extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),SignUpClient.class));
+                finish();
             }
         });
 
@@ -97,6 +98,7 @@ public class LoginSignup extends AppCompatActivity implements
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
            startActivity(new Intent(this,MainActivity.class));
+            finish();
         } else {
             // Signed out, show unauthenticated UI.
             Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
