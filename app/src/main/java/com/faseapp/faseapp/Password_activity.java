@@ -18,6 +18,7 @@ public class Password_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Password_activity.this,MainActivity.class));
+                finish();
             }
         });
     }
