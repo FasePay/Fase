@@ -50,8 +50,10 @@ public class OtpClient extends AppCompatActivity {
             public void onClick(View v) {
                 if(otptext.getText().toString().trim().length()!=6)
                     otp.setError("Invalid otp");
-                else
-                    startActivity(new Intent(OtpClient.this,MainActivity.class));
+                else {
+                    startActivity(new Intent(OtpClient.this, MainActivity.class));
+                    finish();
+                }
             }
         });
     }
