@@ -111,7 +111,7 @@ public class Register extends AppCompatActivity {
                 boolean flag4=(editText4.getText().toString()!=null)  &&(editText4.getText().toString().replaceAll("\\s+","").length()==6);
                 boolean flag5=(editText5.getText().toString()!=null)  &&(editText5.getText().toString().replaceAll("\\s+","").length()==10);
                 if(flag1 && flag2 && flag3 && flag4 && flag5) {
-                    Intent intent=new Intent(Register.this,MainActivity.class);
+                    Intent intent=new Intent(Register.this,Merchant_account.class);
                     intent.putExtra("SIGNAL",true);
                     startActivity(intent);
                     finish();
