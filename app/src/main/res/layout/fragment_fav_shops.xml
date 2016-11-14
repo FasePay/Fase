@@ -20,4 +20,12 @@
         android:layout_gravity="center_horizontal"
         android:text="Save"
         android:textColor="#e86d66"/>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Scan qr code"
+        android:id="@+id/textViewScanQrCode"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
