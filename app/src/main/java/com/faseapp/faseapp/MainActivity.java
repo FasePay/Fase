@@ -14,7 +14,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -28,11 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,10 +46,10 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private PagerAdapter pagerAdapter;
     private int MY_PERMISSION_REQUEST_CAMERA = 100;
-    private TextView textView;
+    private TextView textView2;
     private final String FRAGMENT_TAG = "FTAG";
     String TabFragmentB;
-
+    private TextView textView;
     public void setTabFragmentB(String t){
         TabFragmentB = t;
     }
@@ -69,7 +64,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutActivity);
         viewPager = (ViewPager) findViewById(R.id.viewPagerActivity);
@@ -286,6 +280,9 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             textView = (TextView) view.findViewById(R.id.textViewScanQrCode);
+            textView2= (TextView) view.findViewById(R.id.textView2);
+            if(!getIntent().getExtras().getBoolean("SIGNAL"))
+                textView2.setText("User's Detail");
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

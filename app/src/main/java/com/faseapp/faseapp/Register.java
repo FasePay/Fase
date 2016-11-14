@@ -105,13 +105,15 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //starting activity
-                boolean flag1=(editText1.getText().toString()!=null) && (isAlpha(editText1.getText().toString())) &&(editText1.getText().toString().length()>=3);
-                boolean flag2=(editText2.getText().toString()!=null) && (isAlpha(editText2.getText().toString())) &&(editText3.getText().toString().length()>=6);
-                boolean flag3=(editText3.getText().toString()!=null)  &&(editText3.getText().toString().length()>=10);
-                boolean flag4=(editText4.getText().toString()!=null)  &&(editText4.getText().toString().length()==6);
-                boolean flag5=(editText5.getText().toString()!=null)  &&(editText5.getText().toString().length()==10);
+                boolean flag1=(editText1.getText().toString()!=null) && (isAlpha(editText1.getText().toString().replaceAll("\\s+",""))) &&(editText1.getText().toString().replaceAll("\\s+","").length()>=3);
+                boolean flag2=(editText2.getText().toString()!=null) && (isAlpha(editText2.getText().toString().replaceAll("\\s+",""))) &&(editText2.getText().toString().replaceAll("\\s+","").length()>=6);
+                boolean flag3=(editText3.getText().toString()!=null)  &&(editText3.getText().toString().replaceAll("\\s+","").length()>=10);
+                boolean flag4=(editText4.getText().toString()!=null)  &&(editText4.getText().toString().replaceAll("\\s+","").length()==6);
+                boolean flag5=(editText5.getText().toString()!=null)  &&(editText5.getText().toString().replaceAll("\\s+","").length()==10);
                 if(flag1 && flag2 && flag3 && flag4 && flag5) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    Intent intent=new Intent(Register.this,MainActivity.class);
+                    intent.putExtra("SIGNAL",true);
+                    startActivity(intent);
                     finish();
                 }
                 else
