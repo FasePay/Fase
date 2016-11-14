@@ -62,6 +62,7 @@
             android:value="AIzaSyDTEkh-Rq2kORR0Jak23a32eZPkvoJ7AsU" />-->
 
         <activity android:name=".Home_Page" />
+        <activity android:name=".Merchant_account"></activity>
         <activity
             android:name=".QrCodeScanner"
             android:theme="@style/AppTheme.NoActionBar" />
