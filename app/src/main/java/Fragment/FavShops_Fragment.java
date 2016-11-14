@@ -1,7 +1,11 @@
 package Fragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faseapp.faseapp.MainActivity;
 import com.faseapp.faseapp.Merchantshop;
+import com.faseapp.faseapp.QrCodeScanner;
 import com.faseapp.faseapp.R;
 
 import java.io.IOException;
@@ -27,17 +33,36 @@ public class FavShops_Fragment extends Fragment {
     EditText shopname;
     Button save;
     String shop;
+    TextView textView;
+    private int MY_PERMISSION_REQUEST_CAMERA = 100;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_fav_shops,container,false);
         shopname=(EditText)view.findViewById(R.id.txtfavshop);
         save=(Button)view.findViewById(R.id.btnsave);
+        textView = (TextView) view.findViewById(R.id.textViewScanQrCode);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_REQUEST_CAMERA);
+                        return;
+                    }
+                }
+                Intent intent = new Intent(getContext(), QrCodeScanner.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+            }
+        });
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 shop=shopname.getText().toString();
                 List<Address> addressList = null;
+
                 if(shop.trim().length()!=0){
                     Geocoder geocoder = new Geocoder(getActivity());
                     try{
