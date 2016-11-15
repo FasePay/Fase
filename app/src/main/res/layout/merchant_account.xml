@@ -37,13 +37,16 @@
         android:id="@+id/editTextaccno"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="16"
         app:errorEnabled="true">
 
         <EditText
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPhonetic"
+            android:inputType="number"
+            android:maxLength="16"
             android:hint="Account Number"
             android:ems="10"
             android:id="@+id/editTextacc" />
@@ -52,6 +55,8 @@
         android:id="@+id/editTextifscno"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pad_60dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="11"
         app:errorEnabled="true">
 
         <EditText
@@ -59,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:maxLength="11"
             android:hint="IFSC Code"
             android:ems="10"
             android:id="@+id/editTextifsc" />
