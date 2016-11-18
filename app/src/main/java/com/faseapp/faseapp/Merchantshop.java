@@ -12,21 +12,31 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -35,10 +45,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import Utils.MyDebugClass;
+import model.MySingleton;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -46,19 +67,24 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * Created by amit on 25/10/16.
  */
 
-public class Merchantshop extends Fragment implements OnMapReadyCallback {
+public class Merchantshop extends Fragment implements OnMapReadyCallback{
     private static final int MY_PERMISSION_REQUEST_FINE = 1;
     private static final int MY_NETWORK_STATE = 2;
     private static final int MY_MAP_NETWORK_STATE = 3;
     MapView mMapView;
-    CameraUpdate camera;
     private GoogleMap mMap=null;
     public EditText editText;
     Marker marker,marker1;
-    String value;
     Bundle arguments;
-//    private final String LOG_TAG = "FTAG";
-
+    double latitude,longitude;
+    String server_url;
+    ListView listView;
+    private final String ARRAY_STRING="predictions";
+    private final String OBEJCT_STRING="description";
+    ArrayAdapter<String> arrayAdapter;
+    CardView cardView;
+    boolean flag=false;
+    private Handler handler;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
@@ -76,8 +102,12 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //super.onCreate(savedInstanceState);
         // setContentView(R.layout.merchantshop);
-        View view = inflater.inflate(R.layout.merchantshop, container, false);
+
+        final View view = inflater.inflate(R.layout.merchantshop, container, false);
+        server_url=getPlaceAutoCompleteUrl("Raj");
+        cardView= (CardView) view.findViewById(R.id.map_Card_view);
         mMapView = (MapView) view.findViewById(R.id.map);
+        listView= (ListView) view.findViewById(R.id.searchResultLV);
         mMapView.onCreate(savedInstanceState);
         String myTag = getTag();
         ((MainActivity)getActivity()).setTabFragmentB(myTag);
@@ -90,7 +120,14 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         editText = (EditText) view.findViewById(R.id.TFaddress);
          arguments = getArguments();
         ImageButton btn = (ImageButton) view.findViewById(R.id.button);
-        Button btn3 = (Button) view.findViewById(R.id.zoomin);
+        final Button btn3 = (Button) view.findViewById(R.id.zoomin);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                flag=true;
+                editText.setText(adapterView.getItemAtPosition(i).toString());
+            }
+        });
 
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +135,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
                 mMap.animateCamera(CameraUpdateFactory.zoomIn());
             }
         });
-        Button btn4 = (Button) view.findViewById(R.id.zoomout);
+        final Button btn4 = (Button) view.findViewById(R.id.zoomout);
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +159,111 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
             }
 
         });
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(flag)
+                {
+                    Log.v("FLAG","FLAG");
+                    flag=false;
+                    hideKeyboard(getView());
+                    doWork();
+                }
+               else if((editText.getText().toString() != null &&editText.getText().length()>0 ))
+                {
+                    Runnable run = new Runnable() {
+
+
+                        @Override
+                        public void run() {
+
+                            // cancel all the previous requests in the queue to optimise your network calls during autocomplete search
+                            MySingleton.getInstance(getApplicationContext()).cancelAllRequests("timepass");
+
+                            //build Get url of Place Autocomplete and hit the url to fetch result.
+                            server_url=getPlaceAutoCompleteUrl(editText.getText().toString());
+                            StringRequest stringRequest=new StringRequest(Request.Method.POST,server_url,new Response.Listener<String>(){
+                                @Override
+                                public void onResponse(String response) {
+                                    ArrayList<String> arrayList=new ArrayList<String>();
+                                    arrayAdapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,arrayList);
+                                    try {
+                                        JSONObject jsonObject=new JSONObject(response);
+                                        JSONArray jsonArray=new JSONArray();
+                                        jsonArray=jsonObject.getJSONArray(ARRAY_STRING);
+                                        mMapView.setVisibility(View.GONE);
+                                        cardView.setVisibility(View.GONE);
+                                        listView.setVisibility(View.VISIBLE);
+                                        listView.setAdapter(arrayAdapter);
+                                        for(int i=0;i<jsonArray.length();i++)
+                                        {
+                                            JSONObject jsonObject1=new JSONObject();
+                                            jsonObject1=jsonArray.getJSONObject(i);
+                                            arrayList.add(jsonObject1.getString(OBEJCT_STRING));
+                                            arrayAdapter.notifyDataSetChanged();
+                                        }
+                                        mMapView.setVisibility(View.GONE);
+                                        cardView.setVisibility(View.GONE);
+                                        listView.setVisibility(View.VISIBLE);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            },new Response.ErrorListener()
+                            {
+
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    editText.setText(error.getMessage());
+                                }
+                            });
+                            MySingleton.getInstance(getApplicationContext()).addtoRequestqueue(stringRequest);
+
+                        }
+
+                    };
+
+                    // only canceling the network calls will not help, you need to remove all callbacks as well
+                    // otherwise the pending callbacks and messages will again invoke the handler and will send the request
+                    if (handler != null) {
+                        handler.removeCallbacksAndMessages(null);
+                    } else {
+                        handler = new Handler();
+                    }
+                    handler.postDelayed(run, 1000);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+        KeyboardVisibilityEvent.setEventListener(
+                getActivity(),
+                new KeyboardVisibilityEventListener() {
+                    @Override
+                    public void onVisibilityChanged(boolean isOpen) {
+                        // some code depending on keyboard visiblity status
+                        if(!isOpen)
+                        {
+                            listView.setVisibility(View.GONE);
+                            mMapView.setVisibility(View.VISIBLE);
+                            cardView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
         return view;
     }
 
@@ -167,6 +309,9 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
 
     public void doWork()
     {
+        listView.setVisibility(View.GONE);
+        mMapView.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.VISIBLE);
         String location = editText.getText().toString();
         List<Address> addressList = null;
         if (location != null && location.length() > 0) {
@@ -328,8 +473,8 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
         if (location != null) {
 
 
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
+           longitude = location.getLongitude();
+            latitude = location.getLatitude();
             LatLng latlng = new LatLng(latitude, longitude);
             MyDebugClass.showLog(latlng.latitude + " " + latlng.longitude);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,14));
@@ -377,6 +522,23 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback {
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+    public String getPlaceAutoCompleteUrl(String input) {
+        StringBuilder urlString = new StringBuilder();
+        urlString.append("https://maps.googleapis.com/maps/api/place/autocomplete/json");
+        urlString.append("?input=");
+        try {
+            urlString.append(URLEncoder.encode(input, "utf8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        urlString.append("&location=");
+        urlString.append(latitude + "," + longitude); // append lat long of current location to show nearby results.
+        urlString.append("&radius=2500&language=en");
+        urlString.append("&key=" + "AIzaSyCKATo4rHZuFg3hk3lNOeoCMwoOK6CvY3c");
+
+        Log.d("FINAL URL:::   ", urlString.toString());
+        return urlString.toString();
     }
 
 }

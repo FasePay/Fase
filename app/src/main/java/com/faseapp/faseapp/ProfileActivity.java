@@ -26,8 +26,10 @@ Button button;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent=new Intent(ProfileActivity.this,MainActivity.class);
+                intent.putExtra("SIGNAL",false);
+                startActivity(intent);
                 finish();
-                startActivity(new Intent(ProfileActivity.this,MainActivity.class));
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
