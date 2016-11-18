@@ -65,9 +65,8 @@ public class LoginSignup extends AppCompatActivity implements
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Intent intent=new Intent(LoginSignup.this,MainActivity.class);
-                intent.putExtra("SIGNAL",false);
-                startActivity(intent);
+
+                startActivity(new Intent(LoginSignup.this,MainActivity.class));
                 finish();
             }
 
@@ -98,9 +97,7 @@ public class LoginSignup extends AppCompatActivity implements
         pbar.setVisibility(View.GONE);
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            Intent intent=new Intent(this,MainActivity.class);
-            intent.putExtra("SIGNAL",false);
-            startActivity(intent);
+            startActivity(new Intent(this,MainActivity.class));
             finish();
         } else {
             // Signed out, show unauthenticated UI.

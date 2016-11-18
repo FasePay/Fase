@@ -51,9 +51,7 @@ public class OtpClient extends AppCompatActivity {
                 if(otptext.getText().toString().replaceAll("\\s+","").length()!=6)
                     otp.setError("Invalid otp should be exact six digits");
                 else {
-                    Intent intent=new Intent(OtpClient.this,MainActivity.class);
-                    intent.putExtra("SIGNAL",false);
-                    startActivity(intent);
+                   startActivity(new Intent(OtpClient.this,MainActivity.class));
                     finish();
                 }
             }

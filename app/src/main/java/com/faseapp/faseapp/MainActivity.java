@@ -281,8 +281,6 @@ public class MainActivity extends AppCompatActivity
             });
             textView = (TextView) view.findViewById(R.id.textViewScanQrCode);
             textView2= (TextView) view.findViewById(R.id.textView2);
-            if(!getIntent().getExtras().getBoolean("SIGNAL"))
-                textView2.setText("User's Detail");
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
