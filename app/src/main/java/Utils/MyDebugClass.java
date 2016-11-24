@@ -13,7 +13,7 @@ public class MyDebugClass {
         Toast.makeText(context,string,Toast.LENGTH_SHORT).show();
     }
 
-    public static void showLog(String string){
-        Log.d("Debug Info",string);
+    public static void showLog(String tag,String string){
+        Log.d(tag,string);
     }
 }

@@ -11,4 +11,53 @@
     <string name="transfer">Transfer to your \n Fase friend</string>
     <string name="Wallettobank">Wallet to bank</string>
     <string name="banktobank">Bank to Bank</string>
+    <string name="choose">Choose payment mode</string>
+    <string name="cancel">cancel</string>
+    <string-array name="LoadMoneyOption">
+
+        <item>Net banking</item>
+        <item>Debit card</item>
+        <item>Credit card </item>
+    </string-array>
+
+    <string-array name="paymentOption">
+        <item>Wallet</item>
+        <item>Net banking</item>
+        <item>Debit card</item>
+        <item>Credit card </item>
+    </string-array>
+
+    <string-array name="bankList">
+        <item>Andhra Bank</item>
+        <item>AXIS Bank</item>
+        <item>Bank Of Baroda</item>
+        <item>Bank of India</item>
+        <item>Canara Bank</item>
+        <item>HDFC Bank</item>
+        <item>ICICI Bank</item>
+        <item>IDBI Bank</item>
+        <item>PNB Retail</item>
+        <item>PNB Corporate</item>
+        <item>SBI Bank</item>
+        <item>Union Bank Of India</item>
+        <item>United Bank of India</item>
+
+    </string-array>
+
+    <string-array name="bankCID">
+        <item>CID016</item>
+        <item>CID002</item>
+        <item>CID046</item>
+        <item>CID019</item>
+        <item>CID051</item>
+        <item>CID010</item>
+        <item>CID001</item>
+        <item>CID011</item>
+        <item>CID044</item>
+        <item>CID036</item>
+        <item>CID005</item>
+        <item>CID007</item>
+        <item>CID041</item>
+
+    </string-array>
 </resources>

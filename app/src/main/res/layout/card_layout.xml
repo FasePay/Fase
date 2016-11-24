@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+
+   <ImageView
+       android:scaleType="fitXY"
+       android:src="@drawable/sbicard"
+       android:layout_width="match_parent"
+       android:layout_height="250dp" />
+
+    <EditText
+        android:layout_marginTop="@dimen/pad_10dp"
+        android:hint="Card Number"
+        android:layout_marginLeft="@dimen/dimen_16_dp"
+        android:layout_marginRight="@dimen/dimen_16_dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText9" />
+
+    <EditText
+        android:layout_marginTop="@dimen/pad_20dp"
+        android:hint="Your Name"
+        android:layout_marginLeft="@dimen/dimen_16_dp"
+        android:layout_marginRight="@dimen/dimen_16_dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginRight="@dimen/dimen_16_dp"
+        android:layout_marginLeft="@dimen/dimen_16_dp"
+        android:layout_marginTop="@dimen/pad_20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:hint="expiry MM/YY"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText10" />
+
+        <EditText
+            android:hint="CVV"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:layout_gravity="bottom"
+        android:text="PROCEED"
+        android:layout_marginRight="@dimen/dimen_16_dp"
+        android:layout_marginLeft="@dimen/dimen_16_dp"
+        android:background="@drawable/button_border_redbg"
+        android:layout_marginTop="@dimen/pad_50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+</ScrollView>

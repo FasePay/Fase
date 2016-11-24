@@ -19,7 +19,7 @@ public class Splash extends Activity {
             public void run() {
                 try {
                     sleep(3000);
-                    startActivity(new Intent(getApplicationContext(),UserEntry.class));
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
                     finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();

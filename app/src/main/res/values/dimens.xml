@@ -22,4 +22,5 @@
     <dimen name="pad_20dp">20dp</dimen>
     <dimen name="pad_30dp">30dp</dimen>
     <dimen name="pad_60dp">60dp</dimen>
+    <dimen name="pad_40dp">40dp</dimen>
 </resources>

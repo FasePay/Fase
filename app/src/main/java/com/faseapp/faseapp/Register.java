@@ -146,4 +146,8 @@ public class Register extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),UserEntry.class));
+    }
 }

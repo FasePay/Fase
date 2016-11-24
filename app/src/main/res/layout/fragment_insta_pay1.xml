@@ -12,7 +12,7 @@
         android:layout_margin="@dimen/size_20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Balance = Rs 1000"
+        android:text="Balance = Rs 0"
         android:background="@drawable/button_with_border"
         android:id="@+id/buttonBalance" />
     <TextView
@@ -30,7 +30,7 @@
         android:layout_margin="@dimen/size_10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/editTextPayTo"
         android:layout_gravity="center_horizontal" />
 
     <EditText
@@ -38,7 +38,7 @@
         android:layout_margin="@dimen/size_10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
+        android:id="@+id/editTextPayeeNumber"
         android:inputType="number"
         android:layout_gravity="center_horizontal" />
 
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/editTextAmount"
         android:layout_gravity="center_horizontal" />
 
     <Button
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:text="Pay Now"
         android:textColor="@color/cream_white"
-        android:id="@+id/button2"
+        android:id="@+id/buttonPayNow"
         android:layout_gravity="center_horizontal" />
 
     <TextView

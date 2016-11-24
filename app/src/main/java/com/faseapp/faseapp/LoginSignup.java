@@ -58,7 +58,7 @@ public class LoginSignup extends AppCompatActivity implements
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),SignUpClient.class));
+                startActivity(new Intent(getApplicationContext(),login.class));
                 finish();
             }
         });
@@ -118,4 +118,8 @@ public class LoginSignup extends AppCompatActivity implements
         Toast.makeText(getApplicationContext(),"Failure",Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(),UserEntry.class));
+    }
 }

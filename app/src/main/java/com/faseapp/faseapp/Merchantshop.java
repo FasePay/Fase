@@ -391,7 +391,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback{
                 hideKeyboard(getView());
             }
         });
-        MyDebugClass.showLog("on Map ready");
+        MyDebugClass.showLog("tag","on Map ready");
         checkPerm();
 
     }
@@ -476,7 +476,7 @@ public class Merchantshop extends Fragment implements OnMapReadyCallback{
            longitude = location.getLongitude();
             latitude = location.getLatitude();
             LatLng latlng = new LatLng(latitude, longitude);
-            MyDebugClass.showLog(latlng.latitude + " " + latlng.longitude);
+
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,14));
             marker = mMap.addMarker(new MarkerOptions().position(latlng).title("Marker"));
 

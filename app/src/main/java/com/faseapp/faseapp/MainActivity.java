@@ -1,12 +1,11 @@
 package com.faseapp.faseapp;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -15,7 +14,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,7 +25,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.citrus.sdk.Callback;
+import com.citrus.sdk.CitrusClient;
+import com.citrus.sdk.classes.Amount;
+import com.citrus.sdk.response.CitrusError;
+import com.citrus.sdk.response.CitrusResponse;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,6 +41,7 @@ import java.util.List;
 
 import Fragment.FavShops_Fragment;
 import Fragment.TransferAndRefill_Fragment;
+import Utils.CitrusPay;
 import Utils.MyDebugClass;
 import navigation.CardActivity;
 import navigation.CardAdd;
@@ -44,12 +51,15 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private PagerAdapter pagerAdapter;
+    boolean doubleBackToExitPressedOnce = false;
+    private CitrusClient citrusClient;
     private int MY_PERMISSION_REQUEST_CAMERA = 100;
     private TextView textView2;
     private final String FRAGMENT_TAG = "FTAG";
     String TabFragmentB;
-    private TextView textView;
+    private CitrusPay citrusPay;
+    private String balance;
+    private EditText payTo,mobileNo,amount;
     public void setTabFragmentB(String t){
         TabFragmentB = t;
     }
@@ -62,48 +72,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        citrusPay=new CitrusPay(getApplicationContext());
+        citrusClient=citrusPay.getCitrusClient();
+        citrusClient = CitrusClient.getInstance(getApplicationContext());
+        if(!isUserSignedIn()){
+            startActivity(new Intent(getApplicationContext(),UserEntry.class));
+            MyDebugClass.showToast(getApplicationContext(),"Please sign in");
+        }
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutActivity);
         viewPager = (ViewPager) findViewById(R.id.viewPagerActivity);
         setupViewPager(viewPager);
-       /* pagerAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                switch (position) {
-                    case 0:
-                        return new InstaPay1();
-                    case 1:
-                        return new TransferAndRefill_Fragment();
-                    case 2:
-                        return new FavShops_Fragment();
-                    case 3:
-                        if (isGoogleMapsInstalled())
-                        {
-                            return new Merchantshop();
-                        }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(),"Install Google Play Services First",Toast.LENGTH_LONG).show();
-                        return new InstaPay1();
-                    }
-                    default:
-                        return null;
-                }
-            }
 
-            @Override
-            public int getCount() {
-                return 4;
-            }
 
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return super.getPageTitle(position);
-            }
-        };*/
-       // viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
         setupTabIcons();
@@ -120,6 +104,26 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+    private boolean isUserSignedIn() {
+        final boolean[] b = {false};
+        citrusClient.isUserSignedIn(new com.citrus.sdk.Callback<Boolean>() {
+            @Override
+            public void success(Boolean loggedIn) {
+                MyDebugClass.showLog("user",loggedIn.toString());
+                b[0] = Boolean.parseBoolean(loggedIn.toString());
+            }
+
+            @Override
+            public void error(CitrusError error) {
+                MyDebugClass.showLog("user","user logged Out");
+                MyDebugClass.showToast(getApplicationContext(),"Check internet connection or try again");
+            }
+        });
+        return b[0];
+    }
+
+
     private void setupTabIcons() {
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText("Insta pay");
@@ -152,44 +156,9 @@ public class MainActivity extends AppCompatActivity
         adapter.addFrag(new Merchantshop(), "Shops");
         viewPager.setAdapter(adapter);
     }
-    public void bottomtab() {
-        // final FragmentManager fragmentManager = getSupportFragmentManager();
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-               // changeView(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-    }
 
 
-    private void changeView(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        switch (position) {
-            case 0:
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new InstaPay1(), FRAGMENT_TAG).addToBackStack(null).commit();
-                break;
-            case 1:
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new TransferAndRefill_Fragment(), FRAGMENT_TAG).addToBackStack(null).commit();
-                break;
-            case 2:
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new FavShops_Fragment(), FRAGMENT_TAG).addToBackStack(null).commit();
-                break;
-            case 3:
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new Merchantshop(), FRAGMENT_TAG).addToBackStack(null).commit();
-                break;
-        }
-    }
+
 
 
     @Override
@@ -198,8 +167,22 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
 
-            super.onBackPressed();
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
+
         }
     }
 
@@ -247,7 +230,22 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("FLAG", true);
             startActivity(intent);
         } else if (id == R.id.nav_logOut) {
-            startActivity(new Intent(getApplicationContext(), UserEntry.class));
+            citrusClient.signOut(new Callback<CitrusResponse>() {
+
+                @Override
+                public void success(CitrusResponse citrusResponse) {
+                    startActivity(new Intent(getApplicationContext(), UserEntry.class));
+                    MyDebugClass.showLog("sucess","otp"+citrusResponse.toString());
+                    MyDebugClass.showToast(getApplicationContext(),citrusResponse.getMessage());
+                }
+
+                @Override
+                public void error(CitrusError error) {
+                    MyDebugClass.showToast(getApplicationContext(),error.getMessage()+"Or retry");
+                }
+            });
+
+
         } else if (id == R.id.nav_share) {
             ApplicationInfo app = getApplicationInfo();
             String filePath = app.sourceDir;
@@ -264,55 +262,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public class InstaPay1 extends android.support.v4.app.Fragment {
-        TextView textView;
-        Button button;
 
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_insta_pay1, container, false);
-            button = (Button) view.findViewById(R.id.buttonBalance);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                }
-            });
-            textView = (TextView) view.findViewById(R.id.textViewScanQrCode);
-            textView2= (TextView) view.findViewById(R.id.textView2);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (getActivity().checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_REQUEST_CAMERA);
-                            return;
-                        }
-                    }
-                    Intent intent = new Intent(getContext(), QrCodeScanner.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                }
-            });
-            return view;
-        }
-    }
-
-    public boolean isGoogleMapsInstalled()
-    {
-
-        try
-        {
-            ApplicationInfo info = getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0 );
-            return true;
-        }
-        catch(PackageManager.NameNotFoundException e)
-        {
-            return false;
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -360,5 +311,58 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public class InstaPay1 extends Fragment{
+
+        public InstaPay1(){
+
+        }
+        Button buttonBalance;
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_insta_pay1, container, false);
+            Button button = (Button) view.findViewById(R.id.buttonBalance);
+            payTo= (EditText) view.findViewById(R.id.editTextPayTo);
+            mobileNo= (EditText) view.findViewById(R.id.editTextPayeeNumber);
+            amount= (EditText) view.findViewById(R.id.editTextAmount);
+            button.setSoundEffectsEnabled(false);
+            Button buttonPayNow= (Button) view.findViewById(R.id.buttonPayNow);
+            buttonBalance= (Button) view.findViewById(R.id.buttonBalance);
+            getBal();
+            buttonPayNow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    citrusPay.payFromWallet(amount.getText().toString(),mobileNo.getText().toString());
+                    //startActivity(new Intent(getContext(),CardPay.class));
+                }
+            });
+            buttonBalance.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   getBal();
+                }
+            });
+
+            return view;
+        }
+
+        private void getBal(){
+            citrusClient.getBalance(new com.citrus.sdk.Callback<Amount>() {
+                @Override
+                public void success(Amount amount) {
+                    String s1="Balance =Rs ";
+                    String s2=String.valueOf(amount.getValueAsDouble());
+                    String s3=s1.concat(s2);
+                    buttonBalance.setText(s3);
+                    MyDebugClass.showLog("getWallet",s3+"12");
+                }
+
+                @Override
+                public void error(CitrusError error) {
+                    MyDebugClass.showLog("balance",error.getMessage());
+                }
+            });
+        }
+    }
 
 }
