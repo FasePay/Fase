@@ -110,7 +110,6 @@ public class CardPay extends AppCompatActivity {
 
         {
 
-
             @Override
             public void success(TransactionResponse transactionResponse) {
 
