@@ -20,7 +20,7 @@ public class UserEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),LoginSignup.class));
-                finish();
+
             }
         });
         button2= (ImageView) findViewById(R.id.imageViewMerchant);
@@ -28,7 +28,6 @@ public class UserEntry extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Register.class));
-                finish();
             }
         });
 

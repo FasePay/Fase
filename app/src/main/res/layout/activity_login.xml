@@ -11,4 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/frameSignIn"/>
+    <ProgressBar
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorAccent"
+        android:id="@+id/progressBar_login"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        />
 </RelativeLayout>

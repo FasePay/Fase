@@ -49,9 +49,9 @@ public class TransferAndRefill_Fragment extends Fragment {
                             case 0:
                                 alertDialogForBankName();
                             case 1:
-                               // startActivity(new Intent(getContext(),CardPay.class).putExtra("cardType","debitCard"));
+                               startActivity(new Intent(getContext(),CardPay.class).putExtra("cardType","debitCard"));
                             case 2:
-                               // startActivity(new Intent(getContext(),CardPay.class).putExtra("cardType","creditCard"));
+                              startActivity(new Intent(getContext(),CardPay.class).putExtra("cardType","creditCard"));
                         }
                     }
                 })
