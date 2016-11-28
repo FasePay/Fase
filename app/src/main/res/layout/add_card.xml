@@ -37,9 +37,10 @@
             android:layout_width="wrap_content"
             android:adjustViewBounds="true"
             />
-        <android.support.design.widget.TextInputLayout android:id="@+id/chname"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/holdername"
             app:errorEnabled="true">
             <EditText
                 android:layout_gravity="center"
@@ -47,7 +48,7 @@
                 android:layout_height="match_parent"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText"
+                android:id="@+id/editTextholdername"
                 android:hint="Card Holder's Name"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
@@ -77,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/editText2"
+                android:id="@+id/editTextcardnumber"
                 android:layout_gravity="center"
                 android:hint="Card Number"/>
         </android.support.design.widget.TextInputLayout>
@@ -97,20 +98,39 @@
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/expirytext"
-        android:layout_width="match_parent"
+        android:id="@+id/expirytextmnth"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:errorEnabled="true">
         <EditText
             android:layout_gravity="center"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/editText3"
-            android:hint="Expiry/Valid(MM/YY)"/>
+            android:id="@+id/editTextexpirymnth"
+            android:hint="Expiry/Valid(MM)"/>
     </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/expirytextyr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
+                <EditText
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:ems="10"
+                    android:id="@+id/editTextexpiryyr"
+                    android:hint="Expiry/Valid(YY)"/>
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
 </LinearLayout>
     <LinearLayout android:layout_marginTop="@dimen/margin_card"
         android:orientation="horizontal"
@@ -137,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="10"
-                android:id="@+id/editText4"
+                android:id="@+id/editTextcvv"
                 android:hint="CVV(on back)"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

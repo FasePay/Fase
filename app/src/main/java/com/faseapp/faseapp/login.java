@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class login extends AppCompatActivity {
     private TextView email,phoneNo;
     private EditText otp;
     private Button button;
-
+    private ProgressBar progressBar;
     private LinkUserExtendedResponse linkUserExtended;
     private LinkBindUserResponse linkBindUser = null;
     boolean doubleBackToExitPressedOnce = false;
@@ -41,7 +42,7 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        progressBar= (ProgressBar) findViewById(R.id.progressBar_login);
 //        email= (TextView) findViewById(R.id.editTextEmail_signIn);
 //        phoneNo= (TextView) findViewById(R.id.editTextPhoneNo_signIn);
 //        button= (Button) findViewById(R.id.buttonContinue);
@@ -85,6 +86,7 @@ public class login extends AppCompatActivity {
         citrusClient.linkUserExtended(email,phoneNo , new Callback<LinkUserExtendedResponse>() {
             @Override
             public void success(LinkUserExtendedResponse linkUserExtendedResponse) {
+                progressBar.setVisibility(View.GONE);
                 MyDebugClass.showLog("firstclasssonu","success ho gya"+linkUserExtendedResponse.toString());
                 linkUserExtended=linkUserExtendedResponse;
                 android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -139,6 +141,7 @@ public class login extends AppCompatActivity {
         @Override
         public void onClick(View v) {
                 Log.d("Safedex",email.getText().toString()+phoneNo.getText().toString());
+            progressBar.setVisibility(View.VISIBLE);
                 setCitrusClient(email.getText().toString(),phoneNo.getText().toString());
         }
     }
@@ -155,6 +158,7 @@ public class login extends AppCompatActivity {
             @Override
             public void success(CitrusResponse citrusResponse) {
                 // User Signed In!
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(),citrusResponse.getMessage(),Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 MyDebugClass.showLog("Sucess",citrusResponse.toString());
@@ -180,6 +184,7 @@ public class login extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
                     setOtpAndContinue();
                 }
             });
