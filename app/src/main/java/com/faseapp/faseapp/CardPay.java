@@ -7,18 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.citrus.sdk.Callback;
 import com.citrus.sdk.CitrusClient;
-import com.citrus.sdk.CitrusUser;
-import com.citrus.sdk.TransactionResponse;
-import com.citrus.sdk.classes.Amount;
-import com.citrus.sdk.classes.CitrusException;
-import com.citrus.sdk.classes.Month;
-import com.citrus.sdk.classes.Year;
-import com.citrus.sdk.payment.CreditCardOption;
-import com.citrus.sdk.payment.DebitCardOption;
-import com.citrus.sdk.payment.PaymentType;
-import com.citrus.sdk.response.CitrusError;
 
 import Utils.CitrusPay;
 import Utils.MyDebugClass;
@@ -35,6 +24,8 @@ public class CardPay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_pay);
+        final String amount = getIntent().getExtras().getString("amount");
+        final String cardType=getIntent().getExtras().getString("cardType");
         citrusPay=new CitrusPay(getApplicationContext());
         final CitrusPay citrusPay=new CitrusPay(getApplicationContext());
         citrusClient=citrusPay.getCitrusClient();
@@ -46,6 +37,8 @@ public class CardPay extends AppCompatActivity {
         buttonProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyDebugClass.showLog("cardPay","amount ="+amount+"cardType="+cardType);
+
                 if(checkTextField()){
                     convertMonthAndYear(expiryDate.getText().toString());
                    //citrusPay.loadmoneyIntoWallet(cardHolderName.getText().toString(),cardNumber.getText().toString(),cvv.getText().toString(),month,year,"10");
@@ -91,38 +84,7 @@ public class CardPay extends AppCompatActivity {
 
     }
 
-    private void paymentUsingType(String type,String string) {
-        PaymentType.PGPayment pgPayment = null;
-        DebitCardOption debitCardOption = new DebitCardOption("", "", "", Month.getMonth(""), Year.getYear(""));
-        CreditCardOption creditCardOption=new CreditCardOption("","","",Month.getMonth(""),Year.getYear(""));
-        Amount amount = new Amount(string);
 
-// Init PaymentType
-
-
-        try {
-           pgPayment = new PaymentType.PGPayment(amount, BILL_URL, debitCardOption, new CitrusUser("developercitrus@gmail.com","9876543210"));
-        } catch (CitrusException e) {
-            e.printStackTrace();
-        }
-
-        citrusClient.simpliPay(pgPayment, new Callback<TransactionResponse>()
-
-        {
-
-            @Override
-            public void success(TransactionResponse transactionResponse) {
-
-            }
-
-            @Override
-
-            public void error(CitrusError error) { }
-
-        });
-
-
-    }
 
 
 

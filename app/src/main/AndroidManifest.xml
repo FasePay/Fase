@@ -70,7 +70,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginSignup"
-            android:parentActivityName=".UserEntry"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Password_activity" />
         <activity
@@ -90,7 +90,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".OtpClient"
-            android:parentActivityName=".LoginSignup"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -104,7 +104,7 @@
 
         <activity
             android:name=".login"
-            android:parentActivityName=".UserEntry" />
+             />
         <activity android:name=".CardPay"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>

@@ -1,5 +1,7 @@
 package com.faseapp.faseapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -58,8 +60,8 @@ public class MainActivity extends AppCompatActivity
     private final String FRAGMENT_TAG = "FTAG";
     String TabFragmentB;
     private CitrusPay citrusPay;
-    private String balance;
-    private EditText payTo,mobileNo,amount;
+    private String rs;
+    public EditText payTo,mobileNo,amount;
     public void setTabFragmentB(String t){
         TabFragmentB = t;
     }
@@ -332,7 +334,8 @@ public class MainActivity extends AppCompatActivity
             buttonPayNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    citrusPay.payFromWallet(amount.getText().toString(),mobileNo.getText().toString());
+                    rs=amount.getText().toString();
+                    alertDialogForPayMoneyOption();
                     //startActivity(new Intent(getContext(),CardPay.class));
                 }
             });
@@ -364,5 +367,62 @@ public class MainActivity extends AppCompatActivity
             });
         }
     }
+    public void alertDialogForPayMoneyOption(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.choose)
+                .setItems(R.array.paymentOption, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       switch (which){
+                           case 0:
 
+                               boolean b=citrusPay.payFromWallet(amount.getText().toString(),mobileNo.getText().toString());
+                               MyDebugClass.showLog("citsonu", String.valueOf(b));
+                               if(b){
+                                   payTo.setText("");
+                                   mobileNo.setText("");
+                                   amount.setText("");
+                               }
+                               break;
+                           case 1:
+                               alertDialogForBankName();
+                               break;
+                           case 2:
+                               startActivity(new Intent(getApplicationContext(),CardPay.class).putExtra("cardType","DC").putExtra("amount",rs));
+                               break;
+                           case 3:
+                               startActivity(new Intent(getApplicationContext(),CardPay.class).putExtra("cardType","CC").putExtra("amount",rs));
+                               break;
+                       }
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        builder.create();
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    public void alertDialogForBankName(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.choose)
+                .setItems(R.array.bankList, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        citrusPay.loadMoneyFromNetBanking(getResources().getStringArray(R.array.bankList)[which],getResources().getStringArray(R.array.bankCID)[which],"10");
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MyDebugClass.showToast(getApplicationContext(),"Please choose a mode to load balance");        // User cancelled the dialog
+                    }
+                });
+        builder.create();
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 }
