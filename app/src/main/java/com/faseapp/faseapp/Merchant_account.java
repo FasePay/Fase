@@ -9,22 +9,34 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.citrus.sdk.CitrusClient;
+import com.citrus.sdk.classes.Amount;
+import com.citrus.sdk.response.CitrusError;
+
+import Utils.CitrusPay;
+import Utils.MyDebugClass;
+
 /**
  * Created by amit on 14/11/16.
  */
 
 public class Merchant_account extends AppCompatActivity {
     Button save;
+    CitrusPay citrusPay;
+    private String s2;
+    CitrusClient citrusClient;
     EditText editText1,editText2,editText3,editText4;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        citrusPay=new CitrusPay(getApplicationContext());
+        citrusClient=citrusPay.getCitrusClient();
         setContentView(R.layout.merchant_account);
         editText1= (EditText) findViewById(R.id.editTextbank);
         editText2= (EditText) findViewById(R.id.editTextacc);
         editText3= (EditText) findViewById(R.id.editTextifsc);
         editText4= (EditText) findViewById(R.id.editTextholder);
-        save=(Button)findViewById(R.id.save);
+        save=(Button)findViewById(R.id.saveButton);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -35,10 +47,12 @@ public class Merchant_account extends AppCompatActivity {
                 boolean flag4=(editText4.getText().toString()!=null) && (isAlpha(editText4.getText().toString().replaceAll("\\s+",""))) &&(editText4.getText().toString().replaceAll("\\s+","").length()>=6);
                 if(flag1 && flag2 && flag3 && flag4) {
                     Toast.makeText(getApplicationContext(),"Details entered Successfully",Toast.LENGTH_LONG).show();
-                    editText1.setText("");
-                    editText2.setText("");
-                    editText3.setText("");
-                    editText4.setText("");
+
+                    citrusPay.cashOutWithdraw(getBalance(),editText2.getText().toString(),editText3.getText().toString(),editText4.getText().toString());
+//                    editText1.setText("");
+//                    editText2.setText("");
+//                    editText3.setText("");
+//                    editText4.setText("");
                 }
                 else
                 {
@@ -50,10 +64,27 @@ public class Merchant_account extends AppCompatActivity {
                         editText3.setError("Length should be 11 with alphanumeric charactars");
                     if(!flag4)
                         editText4.setError("Name should be atleast 6 charactar long");
+
                 }
             }
         });
 
+    }
+
+    private String getBalance() {
+        citrusClient.getBalance(new com.citrus.sdk.Callback<Amount>() {
+            @Override
+            public void success(Amount amount) {
+                s2=String.valueOf(amount.getValueAsDouble());
+
+            }
+
+            @Override
+            public void error(CitrusError error) {
+                MyDebugClass.showLog("balance",error.getMessage());
+            }
+        });
+        return s2;
     }
 
     @Override

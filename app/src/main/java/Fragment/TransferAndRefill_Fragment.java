@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.faseapp.faseapp.CardPay;
+import com.faseapp.faseapp.Merchant_account;
 import com.faseapp.faseapp.R;
 
 import Utils.CitrusPay;
@@ -27,6 +28,7 @@ public class TransferAndRefill_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_transfer_n_refill,container,false);
         LinearLayout linearLayout= (LinearLayout) view.findViewById(R.id.refill);
+        LinearLayout walletToBank= (LinearLayout) view.findViewById(R.id.walletToBank);
         citrusPay=new CitrusPay(getContext());
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +36,12 @@ public class TransferAndRefill_Fragment extends Fragment {
                 alertDialogForMode();
 
                // startActivity(new Intent(getContext(), CardPay.class));
+            }
+        });
+        walletToBank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), Merchant_account.class));
             }
         });
         return view;
