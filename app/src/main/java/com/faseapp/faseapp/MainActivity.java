@@ -321,13 +321,13 @@ public class MainActivity extends AppCompatActivity
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_insta_pay1, container, false);
-            Button button = (Button) view.findViewById(R.id.buttonBalance);
+
             payTo= (EditText) view.findViewById(R.id.editTextPayTo);
             mobileNo= (EditText) view.findViewById(R.id.editTextPayeeNumber);
             amount= (EditText) view.findViewById(R.id.editTextAmount);
-            button.setSoundEffectsEnabled(false);
             Button buttonPayNow= (Button) view.findViewById(R.id.buttonPayNow);
             buttonBalance= (Button) view.findViewById(R.id.buttonBalance);
+            buttonBalance.setSoundEffectsEnabled(false);
             getBal();
             buttonPayNow.setOnClickListener(new View.OnClickListener() {
                 @Override

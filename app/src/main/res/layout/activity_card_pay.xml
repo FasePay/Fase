@@ -5,7 +5,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <ImageView
@@ -30,6 +30,7 @@
             android:hint="Card Holder Name"
             android:layout_marginLeft="@dimen/dimen_16_dp"
             android:layout_marginRight="@dimen/dimen_16_dp"
+            android:inputType="numberSigned"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -12,7 +12,7 @@
     <string name="Wallettobank">Wallet to bank</string>
     <string name="banktobank">Bank to Bank</string>
     <string name="choose">Choose payment mode</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string-array name="LoadMoneyOption">
 
         <item>Net banking</item>
