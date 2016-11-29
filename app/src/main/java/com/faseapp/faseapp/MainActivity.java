@@ -1,7 +1,6 @@
 package com.faseapp.faseapp;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -9,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,16 +22,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.citrus.sdk.Callback;
 import com.citrus.sdk.CitrusClient;
-import com.citrus.sdk.classes.Amount;
 import com.citrus.sdk.response.CitrusError;
 import com.citrus.sdk.response.CitrusResponse;
 
@@ -44,9 +38,11 @@ import java.util.List;
 import Fragment.FavShops_Fragment;
 import Fragment.TransferAndRefill_Fragment;
 import Utils.CitrusPay;
+import Utils.DialogBox;
 import Utils.MyDebugClass;
 import navigation.CardActivity;
 import navigation.CardAdd;
+import Fragment.InstaPay1;
 import navigation.User_transaction;
 
 public class MainActivity extends AppCompatActivity
@@ -59,13 +55,15 @@ public class MainActivity extends AppCompatActivity
     private TextView textView2;
     private final String FRAGMENT_TAG = "FTAG";
     String TabFragmentB;
+    public DialogBox dialogBox;
     private CitrusPay citrusPay;
     private String rs;
     public EditText payTo,mobileNo,amount;
     public void setTabFragmentB(String t){
         TabFragmentB = t;
     }
-
+    public AlertDialog alertDialog;
+    public AlertDialog.Builder builder;
     public String getTabFragmentB(){
         return TabFragmentB;
     }
@@ -83,12 +81,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         setContentView(R.layout.activity_main);
+        dialogBox=new DialogBox(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutActivity);
         viewPager = (ViewPager) findViewById(R.id.viewPagerActivity);
         setupViewPager(viewPager);
-
 
         tabLayout.setupWithViewPager(viewPager);
 
@@ -163,30 +161,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
-                return;
-            }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce=false;
-                }
-            }, 2000);
-
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -313,116 +287,34 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public class InstaPay1 extends Fragment{
 
-        public InstaPay1(){
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
+                startActivity(intent);
+                finish();
+                System.exit(0);
+            }
+           // alertDialog.hide();
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
 
         }
-        Button buttonBalance;
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_insta_pay1, container, false);
-            Button button = (Button) view.findViewById(R.id.buttonBalance);
-            payTo= (EditText) view.findViewById(R.id.editTextPayTo);
-            mobileNo= (EditText) view.findViewById(R.id.editTextPayeeNumber);
-            amount= (EditText) view.findViewById(R.id.editTextAmount);
-            button.setSoundEffectsEnabled(false);
-            Button buttonPayNow= (Button) view.findViewById(R.id.buttonPayNow);
-            buttonBalance= (Button) view.findViewById(R.id.buttonBalance);
-            getBal();
-            buttonPayNow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    rs=amount.getText().toString();
-                    alertDialogForPayMoneyOption();
-                    //startActivity(new Intent(getContext(),CardPay.class));
-                }
-            });
-            buttonBalance.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   getBal();
-                }
-            });
-
-            return view;
-        }
-
-        private void getBal(){
-            citrusClient.getBalance(new com.citrus.sdk.Callback<Amount>() {
-                @Override
-                public void success(Amount amount) {
-                    String s1="Balance =Rs ";
-                    String s2=String.valueOf(amount.getValueAsDouble());
-                    String s3=s1.concat(s2);
-                    buttonBalance.setText(s3);
-                    MyDebugClass.showLog("getWallet",s3+"12");
-                }
-
-                @Override
-                public void error(CitrusError error) {
-                    MyDebugClass.showLog("balance",error.getMessage());
-                }
-            });
-        }
     }
-    public void alertDialogForPayMoneyOption(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.choose)
-                .setItems(R.array.paymentOption, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                       switch (which){
-                           case 0:
 
-                               boolean b=citrusPay.payFromWallet(amount.getText().toString(),mobileNo.getText().toString());
-                               MyDebugClass.showLog("citsonu", String.valueOf(b));
-                               if(b){
-                                   payTo.setText("");
-                                   mobileNo.setText("");
-                                   amount.setText("");
-                               }
-                               break;
-                           case 1:
-                               alertDialogForBankName();
-                               break;
-                           case 2:
-                               startActivity(new Intent(getApplicationContext(),CardPay.class).putExtra("cardType","DC").putExtra("amount",rs));
-                               break;
-                           case 3:
-                               startActivity(new Intent(getApplicationContext(),CardPay.class).putExtra("cardType","CC").putExtra("amount",rs));
-                               break;
-                       }
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
-        builder.create();
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-    public void alertDialogForBankName(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.choose)
-                .setItems(R.array.bankList, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        citrusPay.loadMoneyFromNetBanking(getResources().getStringArray(R.array.bankList)[which],getResources().getStringArray(R.array.bankCID)[which],"10");
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        MyDebugClass.showToast(getApplicationContext(),"Please choose a mode to load balance");        // User cancelled the dialog
-                    }
-                });
-        builder.create();
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
 }

@@ -33,7 +33,7 @@ public class login extends AppCompatActivity {
     private int COUNTER=0;
     private TextView email,phoneNo;
     private EditText otp;
-    private Button button;
+    private Button button,buttonOtp;
     private ProgressBar progressBar;
     private LinkUserExtendedResponse linkUserExtended;
     private LinkBindUserResponse linkBindUser = null;
@@ -54,17 +54,9 @@ public class login extends AppCompatActivity {
             if (savedInstanceState != null) {
                 return;
             }
-
-            // Create a new Fragment to be placed in the activity layout
-            final SignInFragment fragment1 = new SignInFragment();
-
-            // In case this activity was started with special instructions from an
-            // Intent, pass the Intent's extras to the fragment as arguments
-            fragment1.setArguments(getIntent().getExtras());
-
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.frameSignIn, fragment1).commit();
+                    .add(R.id.frameSignIn, new SignInFragment()).commit();
 
         }
 
@@ -87,13 +79,13 @@ public class login extends AppCompatActivity {
             @Override
             public void success(LinkUserExtendedResponse linkUserExtendedResponse) {
                 progressBar.setVisibility(View.GONE);
+                button.setClickable(true);
                 MyDebugClass.showLog("firstclasssonu","success ho gya"+linkUserExtendedResponse.toString());
                 linkUserExtended=linkUserExtendedResponse;
                 android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentManager.popBackStack("null", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                OtpFragment fragment = new OtpFragment();
-                fragmentTransaction.replace(R.id.frameSignIn, fragment);
+                fragmentTransaction.replace(R.id.frameSignIn, new OtpFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 COUNTER = 1;
@@ -130,7 +122,7 @@ public class login extends AppCompatActivity {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view=inflater.inflate(R.layout.fragment_signin,container,false);
+            View view=inflater.inflate(R.layout.fragment_login,container,false);
             phoneNo= (TextView) view.findViewById(R.id.editTextPhoneNo_signIn);
             email= (TextView) view.findViewById(R.id.editTextEmail_signIn);
             button= (Button) view.findViewById(R.id.buttonContinue);
@@ -140,6 +132,7 @@ public class login extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            button.setClickable(false);
                 Log.d("Safedex",email.getText().toString()+phoneNo.getText().toString());
             progressBar.setVisibility(View.VISIBLE);
                 setCitrusClient(email.getText().toString(),phoneNo.getText().toString());
@@ -173,17 +166,25 @@ public class login extends AppCompatActivity {
         });
     }
     public class OtpFragment extends Fragment{
+
+        public final OtpFragment newInstance(){
+            OtpFragment otpFragment=new OtpFragment();
+            return otpFragment;
+        }
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view=inflater.inflate(R.layout.fragment_otp,container,false);
-            citrusClient.enableAutoOtpReading(true);
+            //citrusClient.enableAutoOtpReading(true);
+
+            //String string=citrusClient.getAUTO_load_type().toString();
             otp= (EditText) view.findViewById(R.id.editTextOtpClientFrag);
-            Button button= (Button) view.findViewById(R.id.buttonOtpActivity);
-            button.setText("SIGN IN");
-            button.setOnClickListener(new View.OnClickListener() {
+            buttonOtp= (Button) view.findViewById(R.id.buttonOtpActivity);
+            buttonOtp.setText("SIGN IN");
+            buttonOtp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    buttonOtp.setClickable(false);
                     progressBar.setVisibility(View.VISIBLE);
                     setOtpAndContinue();
                 }

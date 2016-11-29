@@ -28,6 +28,8 @@ import java.util.Arrays;
 
 public class CitrusPay  {
     private boolean status;
+    public boolean status1;
+    public String status2;
     public CitrusClient citrusClient;
     private Context context;
     private JsonParsing jsonParsing;
@@ -43,6 +45,7 @@ public class CitrusPay  {
                 "52f7e15efd4208cf5345dd554443fd99",
                 "testing",
                 Environment.SANDBOX );
+        status2 = null;
     }
 
 
@@ -191,27 +194,35 @@ public class CitrusPay  {
         });
     }
 
-    public boolean payFromWallet(String amount,String mobileNo){
+    public void payFromWallet(String amount,String mobileNo){
 
 
         citrusClient.sendMoneyToMoblieNo(new Amount(amount), mobileNo, "My contribution", new Callback<PaymentResponse>() {
+
             @Override
             public void success(PaymentResponse paymentResponse) {
-
-                status=true;
+                status1=true;
+                status2=paymentResponse.getStatus().toString();
+                MyDebugClass.showLog("citssonu","in success");
                 MyDebugClass.showToast(context,"Successfully done");
+                sendStatus();
 
             }
 
             @Override
             public void error(CitrusError error) {
-                status=false;
+                status1=false;
+                status2=error.getStatus().toString();
+                MyDebugClass.showLog("citsonu","in error");
+                sendStatus();
                 MyDebugClass.showToast(context,error.getMessage());
             }
         });
 
-        return status;
+    }
 
+    public boolean sendStatus() {
+        return status1;
     }
 
     public void cashOutWithdraw(String amount,String accontNo,String accountHolderName,String ifsc){
