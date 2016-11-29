@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -16,6 +17,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
@@ -96,6 +98,12 @@ public class LoginSignup extends AppCompatActivity implements
     private void handleSignInResult(GoogleSignInResult result) {
         pbar.setVisibility(View.GONE);
         if (result.isSuccess()) {
+            GoogleSignInAccount googleSignInAccount=result.getSignInAccount();
+            String idToken=googleSignInAccount.getIdToken();
+            if(idToken!=null)
+                Log.v("ID RECIEVED ",idToken);
+            else
+            Log.v("ID FAILED","NULL RECIEVED");
             // Signed in successfully, show authenticated UI.
             startActivity(new Intent(this,MainActivity.class));
             finish();

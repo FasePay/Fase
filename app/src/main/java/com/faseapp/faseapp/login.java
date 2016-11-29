@@ -151,6 +151,7 @@ public class login extends AppCompatActivity {
             @Override
             public void success(CitrusResponse citrusResponse) {
                 // User Signed In!
+
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(),citrusResponse.getMessage(),Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
