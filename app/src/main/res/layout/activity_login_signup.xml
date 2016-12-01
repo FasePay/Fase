@@ -18,41 +18,33 @@
         android:visibility="gone"
         android:layout_centerInParent="true" />
 
-    <com.facebook.login.widget.LoginButton
+    <Button
         android:elevation="@dimen/cardview_default_elevation"
         android:layout_marginRight="@dimen/size_60dp"
+        android:layout_marginLeft="60dp"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_40dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginBottom="33dp"
         android:id="@+id/login_button"
-        android:layout_alignTop="@+id/sign_in_button"
-        android:layout_alignStart="@+id/sign_in_button" />
+        android:textColor="@color/cream_white"
+        android:background="@drawable/button_with_round_corner"
+        android:text="Sign in"
+        android:layout_above="@+id/buttonSignup" />
 
     <Button
         android:layout_marginLeft="@dimen/size_60dp"
         android:layout_marginRight="@dimen/size_60dp"
-        android:layout_marginTop="@dimen/size_20dp"
         android:text="Sign up"
         android:textColor="@color/cream_white"
         android:background="@drawable/button_with_round_corner"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/login_button"
+        android:id="@+id/buttonSignup"
         android:layout_centerHorizontal="true"
-        android:id="@+id/buttonSignup" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:elevation="@dimen/cardview_default_elevation"
-        android:background="@color/white"
-        android:gravity="center"
-        android:layout_marginLeft="@dimen/size_60dp"
-        android:layout_marginRight="@dimen/size_60dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="159dp"
+        android:layout_marginBottom="84dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>

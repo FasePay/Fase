@@ -106,6 +106,9 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SignUpActivity"></activity>
+
+        <activity android:name=".SignInUser"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

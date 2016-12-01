@@ -42,4 +42,6 @@ public class MySingleton {
     {
         requestQueue.cancelAll(timepass);
     }
+
+
 }
