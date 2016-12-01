@@ -26,8 +26,7 @@ Button button;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ProfileActivity.this,MainActivity.class);
-                intent.putExtra("SIGNAL",false);
+                Intent intent=new Intent(ProfileActivity.this,login.class);
                 startActivity(intent);
                 finish();
             }

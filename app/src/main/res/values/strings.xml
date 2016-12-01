@@ -13,6 +13,7 @@
     <string name="banktobank">Bank to Bank</string>
     <string name="choose">Choose payment mode</string>
     <string name="cancel">cancel</string>
+    <string name="processing">processing..........</string>
     <string-array name="LoadMoneyOption">
 
         <item>Net banking</item>

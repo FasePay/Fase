@@ -37,7 +37,7 @@
             android:layout_marginTop="@dimen/size_20dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:inputType="number"
+            android:inputType="phone"
             android:ems="10"
             android:id="@+id/editTextPhoneNo_signIn"
             />
@@ -49,16 +49,14 @@
             android:textColor="@color/textColor"
             android:layout_marginLeft="@dimen/size_40dp"
             android:layout_marginRight="@dimen/size_40dp"
+            android:layout_height="40dp"
             android:background="@drawable/button_with_border"
             android:layout_marginTop="@dimen/size_10dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/editTextEmail_signIn"
             />
-
-
 
     </LinearLayout>
 

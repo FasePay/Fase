@@ -38,7 +38,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         if(result.getText()!=null){
 
             onBackPressed();
-            MyDebugClass.showToast(getApplicationContext(),result.getText().toString());
+            MyDebugClass.showToast(getApplicationContext(),result.getText());
         }
         else{
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dimen_16_dp"
+    android:paddingTop="@dimen/size_20dp"
+    android:paddingRight="@dimen/dimen_16_dp"
+    android:layout_height="match_parent">
+
+
+    <EditText
+
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/button_with_border"
+        android:inputType="textPersonName"
+        android:hint="username"
+        android:ems="10"
+        android:id="@+id/editTextUsername"
+        android:layout_marginTop="20dp"
+  />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/button_with_border"
+        android:inputType="textPersonName"
+        android:hint="first name"
+        android:ems="10"
+
+        android:layout_marginTop="20dp"
+        android:id="@+id/editTextfirstname" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/button_with_border"
+        android:inputType="textPersonName"
+        android:hint="last name"
+        android:ems="10"
+
+        android:layout_marginTop="25dp"
+        android:id="@+id/editTextlastname" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/button_with_border"
+        android:inputType="textPersonName"
+        android:hint="email"
+        android:ems="10"
+
+        android:layout_marginTop="22dp"
+        android:id="@+id/editTextemail" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/button_with_border"
+        android:inputType="textPassword"
+        android:ems="10"
+
+        android:layout_marginTop="26dp"
+        android:id="@+id/editTextpassword"
+        android:hint="password" />
+
+    <Button
+        android:textColor="#fff"
+        android:background="@color/colorPrimary"
+        android:text="Sign Up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="45dp"
+        android:id="@+id/button" />
+</LinearLayout>
