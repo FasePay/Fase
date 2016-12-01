@@ -1,7 +1,7 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="Project 'Prago'" />
-    <option name="defaultScopeName" value="Project 'Prago'" />
-    <option name="SEARCH_SCOPE" value="Project 'Prago'" />
+    <option name="customScope" value="File 'C:\Users\Sonu\Downloads\Compressed\AndroidChattDemo\Prago\app\src\main\AndroidManifest.xml'" />
+    <option name="defaultScopeName" value="File 'C:\Users\Sonu\Downloads\Compressed\AndroidChattDemo\Prago\app\src\main\AndroidManifest.xml'" />
+    <option name="SEARCH_SCOPE" value="File 'C:\Users\Sonu\Downloads\Compressed\AndroidChattDemo\Prago\app\src\main\AndroidManifest.xml'" />
   </component>
 </application>
