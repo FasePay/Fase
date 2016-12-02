@@ -231,7 +231,7 @@ public class login extends AppCompatActivity {
             jsonObject.put("username","newfakeuser");
             jsonObject.put("first_name","Newfakename");
             jsonObject.put("last_name","Newfakelast");
-            jsonObject.put("email","0013shashanksingh@gmail.com");
+            jsonObject.put("email","newuserh@gmail.com");
             jsonObject.put("password","newfakepassword");
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, SERVER_URL, new JSONObject(jsonObject), new Response.Listener<JSONObject>() {
             @Override
