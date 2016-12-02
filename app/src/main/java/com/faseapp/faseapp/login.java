@@ -53,6 +53,7 @@ public class login extends AppCompatActivity {
     private LinkBindUserResponse linkBindUser = null;
     boolean doubleBackToExitPressedOnce = false;
     private String SERVER_URL="https://fase.herokuapp.com/register";
+    private String LOGIN_URl="https://fase.herokuapp.com/login/api/";
     private String PREF_NAME="my_token";
 
     @Override
@@ -74,7 +75,7 @@ public class login extends AppCompatActivity {
 
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.frameSignIn, new LogInFragment()).commit();
+                    .add(R.id.frameSignIn, new SignInFragment()).commit();
 
         }
 
@@ -172,7 +173,7 @@ public class login extends AppCompatActivity {
             log_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   sendToserver(username.getText().toString(),password.getText().toString());
+                   sendToserver();
                 }
             });
             return view;
@@ -181,17 +182,18 @@ public class login extends AppCompatActivity {
 
     }
 
-    void sendToserver(String a,String b)
+    void sendToserver()
     {
+        SharedPreferences sharedPreferences=getSharedPreferences(PREF_NAME,MODE_PRIVATE);
+        String a=sharedPreferences.getString("TOKEN","");
         Map<String,String> jsonObject=new HashMap<String,String>();
-        jsonObject.put("username",a);
-        jsonObject.put("password",b);
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, SERVER_URL, new JSONObject(jsonObject), new Response.Listener<JSONObject>() {
+        jsonObject.put("Authorization","Token"+a);
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, LOGIN_URl, new JSONObject(jsonObject), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 if(response!=null)
                 {
-                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                   Log.v("RESULT",response.toString());
                 }
                 else
                 {
@@ -226,11 +228,11 @@ public class login extends AppCompatActivity {
     void sendJsonToServer()
     {
         Map<String,String> jsonObject=new HashMap<String,String>();
-            jsonObject.put("username","fakeuser");
-            jsonObject.put("first_name","Fakename");
-            jsonObject.put("last_name","Fakelast");
-            jsonObject.put("email","fake@gmail.com");
-            jsonObject.put("password","fakepass");
+            jsonObject.put("username","newfakeuser");
+            jsonObject.put("first_name","Newfakename");
+            jsonObject.put("last_name","Newfakelast");
+            jsonObject.put("email","0013shashanksingh@gmail.com");
+            jsonObject.put("password","newfakepassword");
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, SERVER_URL, new JSONObject(jsonObject), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
